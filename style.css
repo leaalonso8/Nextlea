@@ -104,13 +104,11 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   background: linear-gradient(90deg, var(--blue), var(--green));
 }
 
-/* Titres avec accent couleur inline */
 .title-blue   { color: var(--blue); }
 .title-red    { color: var(--red); }
 .title-green  { color: var(--green); }
 .title-yellow { color: var(--yellow-deep); }
 
-/* Texte italic serif accent (anciennement .gold-word) */
 .accent-word {
   font-family: var(--font-serif);
   font-style: italic;
@@ -131,7 +129,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   height: 64px;
 }
 
-/* Barre 4 couleurs en bas de nav */
 .nav::after {
   content: '';
   position: absolute;
@@ -153,7 +150,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   display: inline-flex; align-items: center; gap: 10px;
 }
 
-/* Logo dot : dégradé 4 couleurs */
 .nav-logo .dot {
   width: 12px; height: 12px;
   border-radius: 50%;
@@ -203,7 +199,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 .btn.outline { background: transparent; color: var(--ink); }
 .btn.outline:hover { box-shadow: 4px 4px 0 var(--ink); }
 
-/* Variantes couleur */
 .btn.blue   { background: var(--blue);   border-color: var(--blue-deep);   color: #fff; }
 .btn.blue:hover   { box-shadow: 4px 4px 0 var(--ink); }
 .btn.red    { background: var(--red);    border-color: var(--red-deep);    color: #fff; }
@@ -213,7 +208,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 .btn.yellow { background: var(--yellow); border-color: var(--yellow-deep); color: var(--ink); }
 .btn.yellow:hover { box-shadow: 4px 4px 0 var(--ink); }
 
-/* Rétro-compat .btn.gold → yellow */
 .btn.gold { background: var(--yellow); border-color: var(--yellow-deep); color: var(--ink); }
 .btn.gold:hover { box-shadow: 4px 4px 0 var(--ink); }
 
@@ -236,7 +230,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   font-family: var(--font-sans);
 }
 
-/* Rareté → couleurs Google */
 .tcard.gold   { --rarity: var(--yellow);  --rarity-deep: var(--yellow-deep); }
 .tcard.silver { --rarity: var(--blue);    --rarity-deep: var(--blue-deep); }
 .tcard.bronze { --rarity: var(--red);     --rarity-deep: var(--red-deep); }
@@ -286,7 +279,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   position: relative; overflow: hidden;
 }
 
-/* Bande couleur en haut de chaque card */
 .tcard-inner::before {
   content: '';
   display: block;
@@ -336,7 +328,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   font-size: 11px; letter-spacing: .1em;
   padding: 3px 8px; border: 1px solid var(--ink); z-index: 2;
 }
-.tcard.gold .tcard-rarity-stamp { color: var(--ink); }
 
 .tcard-stats {
   flex: 1; display: grid; grid-template-columns: 1fr 1fr;
@@ -366,11 +357,7 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 .container { max-width: 1320px; margin: 0 auto; padding: 0 32px; }
 .section    { padding: 80px 0; }
 
-/* Alternance fond blanc / fond noir pour les sections */
-.section-dark {
-  background: var(--ink);
-  color: var(--white);
-}
+.section-dark { background: var(--ink); color: var(--white); }
 .section-dark .eyebrow { color: var(--yellow); }
 .section-dark .eyebrow::before { background: linear-gradient(90deg, var(--yellow), var(--green)); }
 
@@ -385,8 +372,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 }
 .chip:hover  { background: var(--white-3); }
 .chip.active { background: var(--ink); color: var(--white); }
-
-/* Chips couleur */
 .chip.blue   { border-color: var(--blue);   color: var(--blue); }
 .chip.blue.active   { background: var(--blue);   color: #fff; }
 .chip.red    { border-color: var(--red);    color: var(--red); }
@@ -395,8 +380,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 .chip.green.active  { background: var(--green);  color: #fff; }
 .chip.yellow { border-color: var(--yellow-deep); color: var(--yellow-deep); }
 .chip.yellow.active { background: var(--yellow); color: var(--ink); }
-
-/* Rétro-compat .chip.gold */
 .chip.gold { background: var(--yellow); border-color: var(--yellow-deep); }
 
 /* ---------- Cards row ---------- */
@@ -426,14 +409,11 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 }
 .lb-row:nth-child(odd)  { background: var(--white-2); }
 .lb-row:nth-child(even) { background: var(--white); }
-
-/* Ligne #1 : accent bleu */
 .lb-row.gold {
   background: rgba(66,133,244,.06);
   border-left: 4px solid var(--blue);
   border-bottom: 1px solid rgba(66,133,244,.2);
 }
-
 .lb-rank { font-family: var(--font-display); font-size: 24px; font-weight: 900; }
 .lb-rank.gold { color: var(--blue); }
 .lb-name { font-family: var(--font-sans); font-weight: 600; font-size: 15px; }
@@ -447,46 +427,35 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
 /* ---------- Marquee ---------- */
 .marquee {
   overflow: hidden; white-space: nowrap;
-  border-top: none; border-bottom: none;
   background: var(--ink); color: var(--white);
   padding: 14px 0;
   font-family: var(--font-display); font-weight: 900;
   font-size: 24px; letter-spacing: .04em; text-transform: uppercase;
-  /* Bordures 4 couleurs haut et bas */
   border-top: 3px solid transparent;
   border-bottom: 3px solid transparent;
   border-image: linear-gradient(90deg, var(--blue) 25%, var(--red) 25% 50%, var(--yellow) 50% 75%, var(--green) 75%) 1;
 }
 .marquee-track { display: inline-block; animation: marquee 30s linear infinite; padding-left: 100%; }
 .marquee-track span { margin: 0 32px; }
-
-/* Étoiles en couleurs Google cycliques */
 .marquee-track span.g-blue   { color: var(--blue); }
 .marquee-track span.g-red    { color: var(--red); }
 .marquee-track span.g-yellow { color: var(--yellow); }
 .marquee-track span.g-green  { color: var(--green); }
-
-/* Rétro-compat */
 .marquee-track span.gold-text { color: var(--yellow); }
-
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-100%); } }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--ink); color: var(--white); padding: 60px 0 32px; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
-
-/* Titre colonnes footer : couleurs Google rotatif */
-.footer h4:nth-child(1) { color: var(--blue); }
 .footer h4 {
   font-family: var(--font-mono);
   font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--blue); /* défaut bleu */
+  color: var(--blue);
   margin-bottom: 14px;
 }
 .footer-col:nth-child(2) h4 { color: var(--red); }
 .footer-col:nth-child(3) h4 { color: var(--yellow); }
 .footer-col:nth-child(4) h4 { color: var(--green); }
-
 .footer a { display: block; color: rgba(255,255,255,.7); text-decoration: none; padding: 4px 0; font-size: 14px; }
 .footer a:hover { color: #fff; }
 .footer-bottom {
@@ -497,8 +466,6 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   letter-spacing: .1em; text-transform: uppercase;
   color: rgba(255,255,255,.4);
 }
-
-/* Barre 4 couleurs au-dessus du footer */
 .footer::before {
   content: '';
   display: block;
@@ -512,13 +479,13 @@ h3 { font-family: var(--font-display); font-weight: 700; text-transform: upperca
   margin-bottom: 60px;
 }
 
-/* ---------- Step numbers — couleurs Google ---------- */
+/* ---------- Steps ---------- */
 .step:nth-child(1) .step-num { color: var(--blue); text-shadow: 2px 2px 0 var(--ink); }
 .step:nth-child(2) .step-num { color: var(--red); text-shadow: 2px 2px 0 var(--ink); }
 .step:nth-child(3) .step-num { color: var(--yellow-deep); text-shadow: 2px 2px 0 var(--ink); }
 .step:nth-child(4) .step-num { color: var(--green); text-shadow: 2px 2px 0 var(--ink); }
 
-/* ---------- KPI numbers ---------- */
+/* ---------- KPI ---------- */
 .kpi-num { color: var(--blue); }
 
 /* ---------- Deco corners ---------- */
@@ -552,7 +519,7 @@ label {
   color: var(--ink-3); display: block; margin-bottom: 6px;
 }
 
-/* ---------- Utility: section avec bordure top colorée ---------- */
+/* ---------- Utility ---------- */
 .border-top-blue   { border-top: 4px solid var(--blue); }
 .border-top-red    { border-top: 4px solid var(--red); }
 .border-top-yellow { border-top: 4px solid var(--yellow); }
