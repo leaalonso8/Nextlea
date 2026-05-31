@@ -7,20 +7,20 @@
   <meta name="description" content="Nextlea est votre chasseur immobilier augmenté par la data. Rendement calculé, fiscalité optimisée, biens qualifiés livrés. Investissez sans perdre de temps.">
   <link rel="stylesheet" href="style.css">
   <style>
-    .hero { position: relative; padding: 60px 0 120px; overflow: hidden; background: var(--white); }
+    .hero { position: relative; padding: 60px 0 120px; overflow: hidden; background: var(--ink); color: var(--white); }
     .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
-    .hero h1 { font-size: clamp(56px, 7vw, 104px); margin: 24px 0 28px; }
-    .hero h1 .strike { position: relative; color: rgba(0,0,0,.25); }
+    .hero h1 { font-size: clamp(56px, 7vw, 104px); margin: 24px 0 28px; color: var(--white); }
+    .hero h1 .strike { position: relative; color: rgba(255,255,255,.25); }
     .hero h1 .strike::after {
       content: '';
       position: absolute; left: -4%; right: -4%; top: 50%;
       height: 8px; background: var(--red); transform: rotate(-2deg);
     }
-    .hero p.lede { font-size: 19px; color: var(--ink-3); max-width: 540px; margin-bottom: 36px; line-height: 1.55; }
+    .hero p.lede { font-size: 19px; color: rgba(255,255,255,.65); max-width: 540px; margin-bottom: 36px; line-height: 1.55; }
     .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-kpi { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--white-3); }
+    .hero-kpi { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15); }
     .hero-kpi .kpi-num { font-family: var(--font-display); font-size: 40px; font-weight: 900; line-height: 1; }
-    .hero-kpi .kpi-lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+    .hero-kpi .kpi-lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: 4px; }
     .hero-kpi > div:nth-child(1) .kpi-num { color: var(--blue); }
     .hero-kpi > div:nth-child(2) .kpi-num { color: var(--red); }
     .hero-kpi > div:nth-child(3) .kpi-num { color: var(--green); }
@@ -33,7 +33,7 @@
     .hero-stage:hover .tcard:nth-child(1) { transform: translateX(-160px) translateY(0) rotate(-18deg); }
     .hero-stage:hover .tcard:nth-child(2) { transform: translateY(-12px) rotate(0) scale(1.04); z-index: 4; }
     .hero-stage:hover .tcard:nth-child(3) { transform: translateX(160px) translateY(0) rotate(16deg); }
-    .hero-meta { position: absolute; bottom: -30px; right: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: .1em; text-transform: uppercase; }
+    .hero-meta { position: absolute; bottom: -30px; right: 0; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.35); letter-spacing: .1em; text-transform: uppercase; }
     .steps-wrap { background: var(--ink); padding: 80px 0; }
     .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1.5px solid rgba(255,255,255,.15); border-radius: 6px; overflow: hidden; }
     .step { padding: 32px 24px; background: transparent; border-right: 1.5px solid rgba(255,255,255,.1); position: relative; min-height: 280px; display: flex; flex-direction: column; }
@@ -97,18 +97,18 @@
     <div class="container">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Chasseur immobilier · Data · Rendement locatif</span>
+          <span class="eyebrow" style="color:var(--blue);">Chasseur immobilier · Data · Rendement locatif</span>
           <h1>
             Votre prochain<br>
             investissement.<br>
-            <span class="accent-word">Trouvé.</span>
+            <span class="accent-word" style="color:var(--blue);">Trouvé.</span>
           </h1>
           <p class="lede">
             Nextlea croise les annonces du marché, les données DVF et les loyers réels pour vous livrer une shortlist qualifiée — rendement brut, net et cashflow calculés.
           </p>
           <div class="hero-cta">
             <a href="invest.html" class="btn blue">▶ Déposer mon projet d'investissement</a>
-            <a href="marketplace.html" class="btn outline">Voir les biens sélectionnés →</a>
+            <a href="marketplace.html" class="btn" style="background:transparent;color:var(--white);border-color:rgba(255,255,255,.4);">Voir les biens sélectionnés →</a>
           </div>
           <div class="hero-kpi">
             <div><div class="kpi-num">48h</div><div class="kpi-lbl">Délai shortlist</div></div>
@@ -178,7 +178,7 @@
 
   <hr class="divider-google">
 
-  <!-- DOUBLE COLONNE investisseur / data -->
+  <!-- DOUBLE COLONNE -->
   <section class="section" style="padding-top:0;padding-bottom:0;">
     <div class="container">
       <div class="two-col">
@@ -228,7 +228,7 @@
 
   <hr class="divider-google">
 
-  <!-- LEADERBOARD → TOP VILLES -->
+  <!-- TOP VILLES -->
   <section class="section" style="padding-top:60px;">
     <div class="container">
       <span class="eyebrow">Radar marché</span>
@@ -335,18 +335,13 @@
   <script src="data.js"></script>
   <script src="components.js"></script>
   <script>
-    // Hero card stack
     const heroIds = ['c001', 'c003', 'c004'];
     document.getElementById('heroStack').innerHTML = heroIds.map(id => {
       const c = SU_DATA.candidates.find(x => x.id === id);
       return c ? renderCard(c, { compact: true }) : '';
     }).join('');
-
-    // Featured cards
     document.getElementById('featuredCards').innerHTML =
       SU_DATA.candidates.slice(0, 5).map(c => renderCard(c)).join('');
-
-    // Leaderboard — top villes
     const villes = [
       { rang: '01', ville: 'Saint-Étienne', dept: '42', rendement: '8.4%', prix: '1 250 €/m²', loyer: '8.7 €/m²', tension: 'Forte' },
       { rang: '02', ville: 'Mulhouse', dept: '68', rendement: '7.9%', prix: '1 380 €/m²', loyer: '8.1 €/m²', tension: 'Forte' },
