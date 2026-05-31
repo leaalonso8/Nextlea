@@ -7,23 +7,24 @@
   <meta name="description" content="Nextlea est votre chasseur immobilier augmenté par la data. Rendement calculé, fiscalité optimisée, biens qualifiés livrés. Investissez sans perdre de temps.">
   <link rel="stylesheet" href="style.css">
   <style>
-    .hero { position: relative; padding: 60px 0 120px; overflow: hidden; background: var(--ink); color: var(--white); }
-    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
-    .hero h1 { font-size: clamp(56px, 7vw, 104px); margin: 24px 0 28px; color: var(--white); }
-    .hero h1 .strike { position: relative; color: rgba(255,255,255,.25); }
-    .hero h1 .strike::after {
-      content: '';
-      position: absolute; left: -4%; right: -4%; top: 50%;
-      height: 8px; background: var(--red); transform: rotate(-2deg);
+
+    /* ---- NAV : fond noir ---- */
+    .nav {
+      background: var(--ink) !important;
+      border-bottom: none;
     }
-    .hero p.lede { font-size: 19px; color: rgba(255,255,255,.65); max-width: 540px; margin-bottom: 36px; line-height: 1.55; }
+    .nav-logo { color: var(--white) !important; }
+    .nav-links a { color: rgba(255,255,255,.65) !important; }
+    .nav-links a:hover { background: rgba(255,255,255,.08) !important; color: var(--white) !important; }
+    .nav-links a.active { color: var(--white) !important; }
+    .nav-links a.active::after { background: var(--blue) !important; }
+
+    /* ---- HERO : fond blanc, texte noir ---- */
+    .hero { position: relative; padding: 60px 0 80px; overflow: hidden; background: var(--white); }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+    .hero h1 { font-size: clamp(56px, 7vw, 104px); margin: 24px 0 28px; color: var(--ink); }
+    .hero p.lede { font-size: 19px; color: var(--ink-3); max-width: 540px; margin-bottom: 36px; line-height: 1.55; }
     .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-kpi { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 36px; padding-top: 28px; border-top: 1px solid rgba(255,255,255,.15); }
-    .hero-kpi .kpi-num { font-family: var(--font-display); font-size: 40px; font-weight: 900; line-height: 1; }
-    .hero-kpi .kpi-lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: 4px; }
-    .hero-kpi > div:nth-child(1) .kpi-num { color: var(--blue); }
-    .hero-kpi > div:nth-child(2) .kpi-num { color: var(--red); }
-    .hero-kpi > div:nth-child(3) .kpi-num { color: var(--green); }
     .hero-stage { position: relative; aspect-ratio: 1; perspective: 1400px; }
     .hero-card-stack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
     .hero-card-stack .tcard { position: absolute; transition: transform .7s cubic-bezier(.22,1,.36,1); }
@@ -33,7 +34,25 @@
     .hero-stage:hover .tcard:nth-child(1) { transform: translateX(-160px) translateY(0) rotate(-18deg); }
     .hero-stage:hover .tcard:nth-child(2) { transform: translateY(-12px) rotate(0) scale(1.04); z-index: 4; }
     .hero-stage:hover .tcard:nth-child(3) { transform: translateX(160px) translateY(0) rotate(16deg); }
-    .hero-meta { position: absolute; bottom: -30px; right: 0; font-family: var(--font-mono); font-size: 11px; color: rgba(255,255,255,.35); letter-spacing: .1em; text-transform: uppercase; }
+    .hero-meta { position: absolute; bottom: -20px; right: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: .1em; text-transform: uppercase; }
+
+    /* ---- BANDE KPI : fond noir, texte blanc ---- */
+    .hero-kpi-band { background: var(--ink); padding: 40px 0; }
+    .hero-kpi { display: flex; gap: 0; flex-wrap: wrap; }
+    .hero-kpi > div {
+      flex: 1; min-width: 160px;
+      padding: 0 40px;
+      border-right: 1px solid rgba(255,255,255,.12);
+    }
+    .hero-kpi > div:first-child { padding-left: 0; }
+    .hero-kpi > div:last-child { border-right: none; }
+    .hero-kpi .kpi-num { font-family: var(--font-display); font-size: 48px; font-weight: 900; line-height: 1; }
+    .hero-kpi .kpi-lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: 6px; }
+    .hero-kpi > div:nth-child(1) .kpi-num { color: var(--blue); }
+    .hero-kpi > div:nth-child(2) .kpi-num { color: var(--red); }
+    .hero-kpi > div:nth-child(3) .kpi-num { color: var(--green); }
+
+    /* ---- STEPS ---- */
     .steps-wrap { background: var(--ink); padding: 80px 0; }
     .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1.5px solid rgba(255,255,255,.15); border-radius: 6px; overflow: hidden; }
     .step { padding: 32px 24px; background: transparent; border-right: 1.5px solid rgba(255,255,255,.1); position: relative; min-height: 280px; display: flex; flex-direction: column; }
@@ -46,6 +65,8 @@
     .step h3 { font-size: 22px; margin-bottom: 10px; color: var(--white); }
     .step p { color: rgba(255,255,255,.65); font-size: 14px; line-height: 1.55; }
     .step .step-tag { margin-top: auto; font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase; padding-top: 16px; }
+
+    /* ---- TWO-COL ---- */
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; }
     .col { padding: 48px; position: relative; min-height: 460px; }
     .col-investisseur { background: var(--ink); color: var(--white); }
@@ -62,25 +83,33 @@
     .col-data ul li { border-bottom-color: var(--white-3); }
     .col-investisseur ul li::before { content: '→'; font-family: var(--font-display); color: var(--blue); flex-shrink: 0; }
     .col-data ul li::before { content: '→'; font-family: var(--font-display); color: var(--green); flex-shrink: 0; }
+
+    /* ---- FAQ ---- */
     .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
     .faq details { border-bottom: 1px solid var(--ink); padding: 16px 0; }
-    .faq summary { cursor: pointer; font-family: var(--font-display); font-size: 20px; text-transform: uppercase; letter-spacing: -.01em; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+    .faq summary { cursor: pointer; font-family: var(--font-display); font-size: 20px; text-transform: uppercase; letter-spacing: -.01em; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--ink); }
     .faq summary::after { content: '+'; font-size: 28px; color: var(--blue); }
     .faq details[open] summary::after { content: '−'; color: var(--red); }
     .faq p { margin-top: 12px; color: var(--ink-3); font-size: 15px; line-height: 1.55; }
+
+    /* ---- CTA FINAL ---- */
     .cta-final { background: var(--ink); color: var(--white); padding: 100px 0; position: relative; overflow: hidden; }
     .cta-final::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--blue) 25%, var(--red) 25% 50%, var(--yellow) 50% 75%, var(--green) 75%); }
+
+    /* ---- RESPONSIVE ---- */
     @media (max-width: 900px) {
       .hero-grid, .two-col, .steps, .faq { grid-template-columns: 1fr; }
       .steps .step { border-right: none; border-bottom: 1.5px solid rgba(255,255,255,.1); }
       .col-data { border-left: none; border-top: 1.5px solid var(--ink); }
       .hero-stage { display: none; }
+      .hero-kpi > div { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); padding: 20px 0; }
+      .hero-kpi > div:last-child { border-bottom: none; }
     }
   </style>
 </head>
 <body class="page-enter">
 
-  <!-- NAV -->
+  <!-- NAV : fond noir -->
   <nav class="nav">
     <a class="nav-logo" href="index.html"><span class="dot"></span>Nextlea</a>
     <div class="nav-links">
@@ -92,28 +121,23 @@
     <a href="invest.html" class="btn blue sm">Trouver mon bien →</a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO : fond blanc, texte noir -->
   <section class="hero">
     <div class="container">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow" style="color:var(--blue);">Chasseur immobilier · Data · Rendement locatif</span>
+          <span class="eyebrow">Chasseur immobilier · Data · Rendement locatif</span>
           <h1>
             Votre prochain<br>
             investissement.<br>
-            <span class="accent-word" style="color:var(--blue);">Trouvé.</span>
+            <span class="accent-word">Trouvé.</span>
           </h1>
           <p class="lede">
             Nextlea croise les annonces du marché, les données DVF et les loyers réels pour vous livrer une shortlist qualifiée — rendement brut, net et cashflow calculés.
           </p>
           <div class="hero-cta">
             <a href="invest.html" class="btn blue">▶ Déposer mon projet d'investissement</a>
-            <a href="marketplace.html" class="btn" style="background:transparent;color:var(--white);border-color:rgba(255,255,255,.4);">Voir les biens sélectionnés →</a>
-          </div>
-          <div class="hero-kpi">
-            <div><div class="kpi-num">48h</div><div class="kpi-lbl">Délai shortlist</div></div>
-            <div><div class="kpi-num">+6%</div><div class="kpi-lbl">Rendement brut moyen</div></div>
-            <div><div class="kpi-num">100%</div><div class="kpi-lbl">Au succès</div></div>
+            <a href="marketplace.html" class="btn outline">Voir les biens sélectionnés →</a>
           </div>
         </div>
         <div class="hero-stage">
@@ -123,6 +147,28 @@
       </div>
     </div>
   </section>
+
+  <hr class="divider-google">
+
+  <!-- BANDE KPI : fond noir, texte blanc -->
+  <div class="hero-kpi-band">
+    <div class="container">
+      <div class="hero-kpi">
+        <div>
+          <div class="kpi-num">48h</div>
+          <div class="kpi-lbl">Délai shortlist</div>
+        </div>
+        <div>
+          <div class="kpi-num">+6%</div>
+          <div class="kpi-lbl">Rendement brut moyen</div>
+        </div>
+        <div>
+          <div class="kpi-num">100%</div>
+          <div class="kpi-lbl">Au succès</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <hr class="divider-google">
 
@@ -142,7 +188,7 @@
 
   <hr class="divider-google">
 
-  <!-- COMMENT ÇA MARCHE -->
+  <!-- LA MÉTHODE : fond noir -->
   <div class="steps-wrap">
     <div class="container">
       <span class="eyebrow" style="color:var(--white);margin-bottom:8px;display:inline-flex;">La méthode Nextlea</span>
@@ -212,13 +258,13 @@
 
   <hr class="divider-google">
 
-  <!-- BIENS EN AVANT -->
+  <!-- BIENS EN AVANT : fond blanc -->
   <section class="section">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;">
         <div>
           <span class="eyebrow">Sélection du moment</span>
-          <h1 style="font-size:56px;margin-top:12px;">Biens en cours d'analyse.</h1>
+          <h1 style="font-size:56px;margin-top:12px;color:var(--ink);">Biens en cours d'analyse.</h1>
         </div>
         <a href="marketplace.html" class="btn outline sm">Tout voir →</a>
       </div>
@@ -228,11 +274,11 @@
 
   <hr class="divider-google">
 
-  <!-- TOP VILLES -->
+  <!-- TOP VILLES : fond blanc -->
   <section class="section" style="padding-top:60px;">
     <div class="container">
       <span class="eyebrow">Radar marché</span>
-      <h1 style="font-size:56px;margin:12px 0 32px;">Top villes · rendement locatif · 2026</h1>
+      <h1 style="font-size:56px;margin:12px 0 32px;color:var(--ink);">Top villes · rendement locatif · 2026</h1>
       <div class="leaderboard">
         <div class="lb-header">
           <span>Classement rendement brut moyen</span>
@@ -245,11 +291,11 @@
 
   <hr class="divider-google">
 
-  <!-- FAQ -->
+  <!-- FAQ : fond blanc -->
   <section class="section">
     <div class="container">
       <span class="eyebrow">Questions fréquentes</span>
-      <h1 style="font-size:48px;margin:12px 0 32px;">Ce que vous vous demandez.</h1>
+      <h1 style="font-size:48px;margin:12px 0 32px;color:var(--ink);">Ce que vous vous demandez.</h1>
       <div class="faq">
         <details>
           <summary>C'est combien ?</summary>
@@ -281,7 +327,7 @@
 
   <hr class="divider-google">
 
-  <!-- CTA FINAL -->
+  <!-- CTA FINAL : fond noir -->
   <section class="cta-final">
     <div class="container" style="text-align:center;position:relative;">
       <span class="eyebrow" style="color:var(--white);justify-content:center;">Votre prochain investissement</span>
@@ -293,7 +339,7 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- FOOTER : fond noir -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
