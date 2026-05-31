@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SalesUncut — Recrutement commercial. Pas par le CV, par la preuve.</title>
-  <meta name="description" content="SalesUncut certifie les commerciaux par simulation commerciale réelle. Recrutez sur la preuve, pas sur le CV. 7 dimensions scorées, extraits audio, pool filtrable.">
+  <title>Nextlea — Your next investment. Found.</title>
+  <meta name="description" content="Nextlea est votre chasseur immobilier augmenté par la data. Rendement calculé, fiscalité optimisée, biens qualifiés livrés. Investissez sans perdre de temps.">
   <link rel="stylesheet" href="style.css">
   <style>
     .hero { position: relative; padding: 60px 0 120px; overflow: hidden; background: var(--white); }
@@ -48,20 +48,20 @@
     .step .step-tag { margin-top: auto; font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase; padding-top: 16px; }
     .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; }
     .col { padding: 48px; position: relative; min-height: 460px; }
-    .col-candidat { background: var(--ink); color: var(--white); }
-    .col-recruteur { background: var(--white); color: var(--ink); border-left: 1.5px solid var(--ink); }
+    .col-investisseur { background: var(--ink); color: var(--white); }
+    .col-data { background: var(--white); color: var(--ink); border-left: 1.5px solid var(--ink); }
     .col h2 { font-size: 56px; margin: 20px 0 16px; }
     .col h2 small { display: block; font-size: 16px; font-family: var(--font-mono); letter-spacing: .2em; font-weight: 400; margin-bottom: 8px; }
-    .col-candidat h2 small { color: var(--blue); }
-    .col-recruteur h2 small { color: var(--blue); }
+    .col-investisseur h2 small { color: var(--blue); }
+    .col-data h2 small { color: var(--blue); }
     .col p { font-size: 16px; line-height: 1.6; max-width: 460px; margin-bottom: 12px; }
-    .col-candidat p { color: rgba(255,255,255,.75); }
-    .col-recruteur p { color: var(--ink-3); }
+    .col-investisseur p { color: rgba(255,255,255,.75); }
+    .col-data p { color: var(--ink-3); }
     .col ul { list-style: none; margin: 24px 0; }
     .col ul li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.1); display: flex; gap: 12px; align-items: flex-start; font-size: 15px; }
-    .col-recruteur ul li { border-bottom-color: var(--white-3); }
-    .col-candidat ul li::before { content: '→'; font-family: var(--font-display); color: var(--blue); flex-shrink: 0; }
-    .col-recruteur ul li::before { content: '→'; font-family: var(--font-display); color: var(--green); flex-shrink: 0; }
+    .col-data ul li { border-bottom-color: var(--white-3); }
+    .col-investisseur ul li::before { content: '→'; font-family: var(--font-display); color: var(--blue); flex-shrink: 0; }
+    .col-data ul li::before { content: '→'; font-family: var(--font-display); color: var(--green); flex-shrink: 0; }
     .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
     .faq details { border-bottom: 1px solid var(--ink); padding: 16px 0; }
     .faq summary { cursor: pointer; font-family: var(--font-display); font-size: 20px; text-transform: uppercase; letter-spacing: -.01em; list-style: none; display: flex; justify-content: space-between; align-items: center; }
@@ -73,44 +73,52 @@
     @media (max-width: 900px) {
       .hero-grid, .two-col, .steps, .faq { grid-template-columns: 1fr; }
       .steps .step { border-right: none; border-bottom: 1.5px solid rgba(255,255,255,.1); }
-      .col-recruteur { border-left: none; border-top: 1.5px solid var(--ink); }
+      .col-data { border-left: none; border-top: 1.5px solid var(--ink); }
       .hero-stage { display: none; }
     }
   </style>
 </head>
 <body class="page-enter">
 
+  <!-- NAV -->
   <nav class="nav">
-    <a class="nav-logo" href="index.html"><span class="dot"></span>SalesUncut</a>
+    <a class="nav-logo" href="index.html"><span class="dot"></span>Nextlea</a>
     <div class="nav-links">
       <a href="index.html" class="active">Accueil</a>
-      <a href="candidat.html">Pour candidats</a>
-      <a href="marketplace.html">Pour recruteurs</a>
-      <a href="profil.html?id=c001">Voir un profil</a>
+      <a href="invest.html">Déposer mon projet</a>
+      <a href="marketplace.html">Les biens</a>
+      <a href="profil.html">Exemple de dossier</a>
     </div>
-    <a href="candidat.html" class="btn blue sm">Passer le test</a>
+    <a href="invest.html" class="btn blue sm">Trouver mon bien →</a>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow">Recrutement commercial. Pas par le CV, par la preuve.</span>
-          <h1>Les <span class="strike">CV</span> racontent.<br><span class="accent-word">Les appels prouvent.</span></h1>
-          <p class="lede">30 minutes de simulation commerciale réelle. Des recruteurs qui filtrent par score, pas par intuition.</p>
+          <span class="eyebrow">Chasseur immobilier · Data · Rendement locatif</span>
+          <h1>
+            Votre prochain<br>
+            investissement.<br>
+            <span class="accent-word">Trouvé.</span>
+          </h1>
+          <p class="lede">
+            Nextlea croise les annonces du marché, les données DVF et les loyers réels pour vous livrer une shortlist qualifiée — rendement brut, net et cashflow calculés.
+          </p>
           <div class="hero-cta">
-            <a href="candidat.html" class="btn blue">▶ Montrer ce que je vaux</a>
-            <a href="marketplace.html" class="btn outline">Voir les profils sans inscription →</a>
+            <a href="invest.html" class="btn blue">▶ Déposer mon projet d'investissement</a>
+            <a href="marketplace.html" class="btn outline">Voir les biens sélectionnés →</a>
           </div>
           <div class="hero-kpi">
-            <div><div class="kpi-num">30s</div><div class="kpi-lbl">Pour qualifier</div></div>
-            <div><div class="kpi-num">7</div><div class="kpi-lbl">Dimensions scorées</div></div>
-            <div><div class="kpi-num">218</div><div class="kpi-lbl">Commerciaux testés</div></div>
+            <div><div class="kpi-num">48h</div><div class="kpi-lbl">Délai shortlist</div></div>
+            <div><div class="kpi-num">+6%</div><div class="kpi-lbl">Rendement brut moyen</div></div>
+            <div><div class="kpi-num">100%</div><div class="kpi-lbl">Au succès</div></div>
           </div>
         </div>
         <div class="hero-stage">
           <div class="hero-card-stack" id="heroStack"></div>
-          <div class="hero-meta">↳ Survole la pile · clique pour ouvrir</div>
+          <div class="hero-meta">↳ Survole la pile · voir le détail</div>
         </div>
       </div>
     </div>
@@ -118,62 +126,85 @@
 
   <hr class="divider-google">
 
+  <!-- MARQUEE -->
   <div class="marquee">
     <div class="marquee-track">
-      <span>Écoute &gt; CV</span><span class="g-blue"> ★ </span>
-      <span>30 min de vérité</span><span class="g-red"> ★ </span>
-      <span>7 dimensions notées par IA</span><span class="g-yellow"> ★ </span>
-      <span>Certifié 18 mois</span><span class="g-green"> ★ </span>
-      <span>Écoute &gt; CV</span><span class="g-blue"> ★ </span>
-      <span>30 min de vérité</span><span class="g-red"> ★ </span>
-      <span>7 dimensions notées par IA</span><span class="g-yellow"> ★ </span>
-      <span>Certifié 18 mois</span><span class="g-green"> ★ </span>
+      <span>Data &gt; intuition</span><span class="g-blue"> ★ </span>
+      <span>Rendement calculé avant achat</span><span class="g-red"> ★ </span>
+      <span>DVF · Loyers · Fiscalité</span><span class="g-yellow"> ★ </span>
+      <span>Honoraires au succès uniquement</span><span class="g-green"> ★ </span>
+      <span>Data &gt; intuition</span><span class="g-blue"> ★ </span>
+      <span>Rendement calculé avant achat</span><span class="g-red"> ★ </span>
+      <span>DVF · Loyers · Fiscalité</span><span class="g-yellow"> ★ </span>
+      <span>Honoraires au succès uniquement</span><span class="g-green"> ★ </span>
     </div>
   </div>
 
   <hr class="divider-google">
 
+  <!-- COMMENT ÇA MARCHE -->
   <div class="steps-wrap">
     <div class="container">
-      <span class="eyebrow" style="color:var(--white);margin-bottom:8px;display:inline-flex;">Comment ça marche</span>
-      <h1 style="font-size:64px;margin:16px 0 48px;color:var(--white);">Ici, on recrute autrement.<br><small style="font-size:0.4em;font-weight:400;opacity:0.4;letter-spacing:0.05em;color:var(--white);">Côté sales ↓ · Côté recruteur ↓</small></h1>
+      <span class="eyebrow" style="color:var(--white);margin-bottom:8px;display:inline-flex;">La méthode Nextlea</span>
+      <h1 style="font-size:64px;margin:16px 0 48px;color:var(--white);">Investir autrement.<br><small style="font-size:0.4em;font-weight:400;opacity:0.4;letter-spacing:0.05em;color:var(--white);">De votre profil à l'acquisition ↓</small></h1>
       <div class="steps">
-        <div class="step"><div class="step-num">01</div><h3>Choisis ta famille</h3><p>10 verticales possibles : SaaS RH, Sales CRM, Finance, Cyber, Énergie… Tu choisis ton terrain de chasse.</p><div class="step-tag">→ 10 familles × 3 scénarios</div></div>
-        <div class="step"><div class="step-num">02</div><h3>30 min en live</h3><p>30 minutes. Un prospect qui ne fait pas de cadeaux. Tu gères ou tu gères pas.</p><div class="step-tag">→ Aucun rattrapage. Une prise.</div></div>
-        <div class="step"><div class="step-num">03</div><h3>Ta carte sort</h3><p>Sept dimensions notées sur 100. Sept extraits horodatés. Un niveau Bronze, Silver ou Gold tamponné dessus.</p><div class="step-tag">→ Notation IA + validation humaine</div></div>
-        <div class="step"><div class="step-num">04</div><h3>Le pool te trouve</h3><p>Tu apparais dans la marketplace recruteurs avec tes critères. Eux filtrent, écoutent, te contactent — ou pas.</p><div class="step-tag">→ Validité 18 mois</div></div>
+        <div class="step">
+          <div class="step-num">01</div>
+          <h3>Votre profil investisseur</h3>
+          <p>Budget, apport, rentabilité minimum, régime fiscal (LMNP, SCI…), villes cibles, objectif patrimonial. On construit votre fiche en 10 minutes.</p>
+          <div class="step-tag">→ Formulaire intelligent en ligne</div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h3>Matching data</h3>
+          <p>On croise vos critères avec les annonces du marché, les prix DVF réels et les loyers moyens par quartier. Zéro biais, zéro perte de temps.</p>
+          <div class="step-tag">→ DVF · Jinka · CLAMEUR</div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h3>Shortlist qualifiée</h3>
+          <p>Léa analyse les biens pré-filtrés et vous livre une sélection resserrée avec rendement brut, net et cashflow mensuel calculés pour chaque bien.</p>
+          <div class="step-tag">→ 3 à 5 biens · sous 48h</div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h3>Accompagnement</h3>
+          <p>Visites, négociation, simulation fiscale, mise en relation notaire. On reste dans la boucle jusqu'à l'acte. Honoraires uniquement si vous achetez.</p>
+          <div class="step-tag">→ 2 000 – 5 000 € au succès</div>
+        </div>
       </div>
     </div>
   </div>
 
   <hr class="divider-google">
 
+  <!-- DOUBLE COLONNE investisseur / data -->
   <section class="section" style="padding-top:0;padding-bottom:0;">
     <div class="container">
       <div class="two-col">
-        <div class="col col-candidat">
-          <span class="eyebrow" style="color:var(--blue)">Pour les sales</span>
-          <h2><small>Côté candidat</small>Sors du<br>CV-bingo.</h2>
-          <p>Tu en as marre d'envoyer 80 candidatures pour trois entretiens où on te demande « vendez-moi ce stylo ». On t'écoute vendre, point.</p>
+        <div class="col col-investisseur">
+          <span class="eyebrow" style="color:var(--blue)">Pour l'investisseur</span>
+          <h2><small>Côté client</small>Stop aux<br>annonces inutiles.</h2>
+          <p>Vous passez des heures sur SeLoger, LeBonCoin, PAP — pour des biens surévalués, mal situés, sans calcul de rentabilité. Nextlea fait ce travail à votre place, avec la data.</p>
           <ul>
-            <li>Ta carte active dans le pool pendant 18 mois : les recruteurs te trouvent</li>
-            <li>Tu fixes tes conditions (salaire, remote, taille) — le matching vient à toi</li>
-            <li>Anonymat complet possible : tu valides avant de te révéler</li>
-            <li>Badge LinkedIn certifié SalesUncut : prouve tes scores sur ton profil</li>
+            <li>Une shortlist de 3 à 5 biens qualifiés sous 48h — pas 200 annonces à trier</li>
+            <li>Rendement brut, net et cashflow calculés sur chaque bien avant votre première visite</li>
+            <li>Accompagnement fiscal inclus : LMNP, LMP, SCI IS/IR — on choisit le bon régime avec vous</li>
+            <li>Honoraires uniquement si vous achetez — alignement total avec vos intérêts</li>
           </ul>
-          <a href="candidat.html" class="btn blue">Passer ma simulation →</a>
+          <a href="invest.html" class="btn blue">Déposer mon projet →</a>
         </div>
-        <div class="col col-recruteur">
-          <span class="eyebrow" style="color:var(--green)">Pour les recruteurs</span>
-          <h2><small>Côté recruteur</small>Filtre.<br>Écoute. Recrute.</h2>
-          <p>Plus de pré-quali interminables au téléphone. Tu vois la carte, tu cliques l'extrait closing, tu sais en 30 secondes.</p>
+        <div class="col col-data">
+          <span class="eyebrow" style="color:var(--green)">La différence Nextlea</span>
+          <h2><small>Côté méthode</small>Data.<br>Calcul. Résultat.</h2>
+          <p>Pas un chasseur qui cherche à l'œil. Un moteur de matching qui croise prix réels (DVF), loyers moyens et fiscalité pour ne vous présenter que ce qui tient la route.</p>
           <ul>
-            <li>30 secondes pour décider si un profil mérite un entretien</li>
-            <li>Filtres sur les vraies compétences (closing, discovery, objections)</li>
-            <li>Extraits audio horodatés : tu entends la voix, les réactions, la posture</li>
-            <li><strong>Essai gratuit : 1 profil complet sans CB</strong></li>
+            <li>Prix DVF réels — pas les prix affichés, les prix signés</li>
+            <li>Loyers moyens par quartier issus de CLAMEUR et LocService</li>
+            <li>Écart prix demandé / marché calculé automatiquement</li>
+            <li><strong>Premiers dossiers traités dès maintenant sur la Côte d'Azur</strong></li>
           </ul>
-          <a href="marketplace.html" class="btn">Voir le pool →</a>
+          <a href="marketplace.html" class="btn">Voir les biens →</a>
         </div>
       </div>
     </div>
@@ -181,10 +212,14 @@
 
   <hr class="divider-google">
 
+  <!-- BIENS EN AVANT -->
   <section class="section">
     <div class="container">
       <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;">
-        <div><span class="eyebrow">Drop de la semaine</span><h1 style="font-size:56px;margin-top:12px;">Nouveaux arrivants dans le pool.</h1></div>
+        <div>
+          <span class="eyebrow">Sélection du moment</span>
+          <h1 style="font-size:56px;margin-top:12px;">Biens en cours d'analyse.</h1>
+        </div>
         <a href="marketplace.html" class="btn outline sm">Tout voir →</a>
       </div>
       <div class="cards-row" id="featuredCards"></div>
@@ -193,14 +228,15 @@
 
   <hr class="divider-google">
 
+  <!-- LEADERBOARD → TOP VILLES -->
   <section class="section" style="padding-top:60px;">
     <div class="container">
-      <span class="eyebrow">Hall of fame</span>
-      <h1 style="font-size:56px;margin:12px 0 32px;">Top 8 du pool · mai 2026</h1>
+      <span class="eyebrow">Radar marché</span>
+      <h1 style="font-size:56px;margin:12px 0 32px;">Top villes · rendement locatif · 2026</h1>
       <div class="leaderboard">
         <div class="lb-header">
-          <span>Classement général</span>
-          <span class="mono" style="font-size:12px;letter-spacing:.1em;">MIS À JOUR EN TEMPS RÉEL</span>
+          <span>Classement rendement brut moyen</span>
+          <span class="mono" style="font-size:12px;letter-spacing:.1em;">SOURCE : DVF + CLAMEUR · MAI 2026</span>
         </div>
         <div id="leaderboardRows"></div>
       </div>
@@ -209,49 +245,89 @@
 
   <hr class="divider-google">
 
+  <!-- FAQ -->
   <section class="section">
     <div class="container">
       <span class="eyebrow">Questions fréquentes</span>
-      <h1 style="font-size:48px;margin:12px 0 32px;">Ce que tout le monde demande.</h1>
+      <h1 style="font-size:48px;margin:12px 0 32px;">Ce que vous vous demandez.</h1>
       <div class="faq">
-        <details><summary>C'est combien ?</summary><p>Bronze 39€ · Silver 59€ · Gold 89€ pour le candidat. Pour les recruteurs : 1 profil gratuit, puis abonnement pool complet.</p></details>
-        <details><summary>Pourquoi faire ça plutôt qu'un entretien normal ?</summary><p>Parce que tu passes UNE simulation, et elle te ramène N recruteurs au lieu que toi tu coures après. C'est l'inverse du marché.</p></details>
-        <details><summary>Vous notez comment ?</summary><p>Sept dimensions, pondérations fixes, grille publique. Notation IA + validation humaine par notre équipe avant publication.</p></details>
-        <details><summary>Je peux retenter ?</summary><p>Oui, après 30 jours. Et tu peux passer une autre famille pour montrer un autre angle de ton profil.</p></details>
-        <details><summary>Et si j'ai un mauvais score ?</summary><p>Tu reçois quand même ton rapport avec axes de progression. Tu choisis si tu publies ton profil dans le pool.</p></details>
-        <details><summary>C'est anonyme ?</summary><p>Au choix. Tu peux apparaître en clair (Nom + photo) ou en handle (ex: ARES-04). Le recruteur voit toujours ton audio.</p></details>
+        <details>
+          <summary>C'est combien ?</summary>
+          <p>Honoraires au succès uniquement : 2 000 à 5 000 € payés le jour de l'acte, selon la complexité du dossier. Zéro frais si vous n'achetez pas. Pack Premium (analyse fiscale + simulation + suivi 6 mois) disponible à 500 €.</p>
+        </details>
+        <details>
+          <summary>Quelle zone géographique ?</summary>
+          <p>Actuellement focalisé sur la Côte d'Azur (Antibes, Nice, Cannes, Sophia-Antipolis) et les principales métropoles françaises à rendement avéré. Extension progressive selon la demande.</p>
+        </details>
+        <details>
+          <summary>Comment calculez-vous le rendement ?</summary>
+          <p>Rendement brut = loyer annuel estimé / prix d'acquisition. Rendement net = déduction charges, taxe foncière, frais de gestion. Cashflow = loyer net mensuel − mensualité crédit. Tout est détaillé dans chaque fiche bien.</p>
+        </details>
+        <details>
+          <summary>Et la fiscalité ?</summary>
+          <p>On analyse votre TMI, votre situation personnelle (SCI ou nom propre) et on modélise l'impact de chaque régime : micro-BIC, réel LMNP, LMP, SCI IS. Vous décidez en connaissance de cause.</p>
+        </details>
+        <details>
+          <summary>Je suis débutant, c'est fait pour moi ?</summary>
+          <p>Oui. Nextlea accompagne aussi bien les primo-investisseurs que les portefeuilles avancés. Le formulaire de profil est conçu pour qu'on comprenne votre niveau et vos objectifs dès le départ.</p>
+        </details>
+        <details>
+          <summary>Combien de temps avant de recevoir ma shortlist ?</summary>
+          <p>48h ouvrées après réception de votre profil complet. En pratique, souvent moins. On vous prévient dès qu'un bien pertinent est identifié, sans attendre d'en avoir 5.</p>
+        </details>
       </div>
     </div>
   </section>
 
   <hr class="divider-google">
 
+  <!-- CTA FINAL -->
   <section class="cta-final">
     <div class="container" style="text-align:center;position:relative;">
-      <span class="eyebrow" style="color:var(--white);justify-content:center;">Dernier appel</span>
-      <h1 style="font-size:clamp(64px,9vw,140px);margin:24px 0;color:var(--white);">Montre que<br>tu sais<span style="color:var(--blue);font-family:var(--font-serif);font-style:italic;text-transform:none;font-weight:400;"> vendre</span>.</h1>
-      <p style="font-size:18px;color:rgba(255,255,255,.6);max-width:540px;margin:0 auto 36px;">Pas de CV à retravailler. Pas de lettre de motivation. Juste 30 minutes au téléphone avec un prospect IA, et une carte qui te suit.</p>
-      <a href="candidat.html" class="btn blue">▶ Démarrer ma simulation</a>
+      <span class="eyebrow" style="color:var(--white);justify-content:center;">Votre prochain investissement</span>
+      <h1 style="font-size:clamp(64px,9vw,140px);margin:24px 0;color:var(--white);">Trouvé.<br><span style="color:var(--blue);font-family:var(--font-serif);font-style:italic;text-transform:none;font-weight:400;">Calculé. Acquis.</span></h1>
+      <p style="font-size:18px;color:rgba(255,255,255,.6);max-width:540px;margin:0 auto 36px;">
+        Déposez votre projet en 10 minutes. Recevez une shortlist qualifiée sous 48h. Payez uniquement si vous achetez.
+      </p>
+      <a href="invest.html" class="btn blue">▶ Démarrer mon projet d'investissement</a>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-col">
           <div style="font-family:var(--font-display);font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:16px;display:flex;align-items:center;gap:8px;">
             <span style="width:12px;height:12px;border-radius:50%;background:conic-gradient(var(--blue) 0deg 90deg,var(--red) 90deg 180deg,var(--yellow) 180deg 270deg,var(--green) 270deg 360deg);flex-shrink:0;"></span>
-            SALESUNCUT
+            NEXTLEA
           </div>
-          <p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;max-width:260px;">La certification commerciale qui remplace le CV par la preuve sonore.</p>
+          <p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;max-width:260px;">
+            Chasseur immobilier augmenté par la data. Rendement locatif calculé, fiscalité optimisée, biens qualifiés livrés.
+          </p>
         </div>
-        <div class="footer-col"><h4>Candidats</h4><a href="candidat.html">Passer le test</a><a href="candidat.html#tarifs">Tarifs</a><a href="#">FAQ candidat</a></div>
-        <div class="footer-col"><h4>Recruteurs</h4><a href="marketplace.html">Voir le pool</a><a href="#">Tarifs recruteur</a><a href="#">Intégrations ATS</a></div>
-        <div class="footer-col"><h4>Légal</h4><a href="#">Confidentialité</a><a href="#">Conditions</a><a href="#">Mentions légales</a></div>
+        <div class="footer-col">
+          <h4>Investisseurs</h4>
+          <a href="invest.html">Déposer mon projet</a>
+          <a href="invest.html#tarifs">Honoraires</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer-col">
+          <h4>Biens</h4>
+          <a href="marketplace.html">Sélection en cours</a>
+          <a href="marketplace.html">Par ville</a>
+          <a href="marketplace.html">Par rendement</a>
+        </div>
+        <div class="footer-col">
+          <h4>Nextlea</h4>
+          <a href="#">À propos</a>
+          <a href="#">Confidentialité</a>
+          <a href="#">Mentions légales</a>
+        </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2026 SALESUNCUT. TOUS DROITS RÉSERVÉS.</span>
-        <span class="mono">CERTIFIÉ PAR LA PREUVE</span>
+        <span>© 2026 NEXTLEA. TOUS DROITS RÉSERVÉS.</span>
+        <span class="mono">YOUR NEXT INVESTMENT. FOUND.</span>
       </div>
     </div>
   </footer>
@@ -259,14 +335,38 @@
   <script src="data.js"></script>
   <script src="components.js"></script>
   <script>
+    // Hero card stack
     const heroIds = ['c001', 'c003', 'c004'];
-    document.getElementById('heroStack').innerHTML = heroIds.map(id => { const c = SU_DATA.candidates.find(x => x.id === id); return c ? renderCard(c, { compact: true }) : ''; }).join('');
-    document.getElementById('featuredCards').innerHTML = SU_DATA.candidates.slice(0, 5).map(c => renderCard(c)).join('');
-    const top8 = [...SU_DATA.candidates].sort((a,b) => b.score - a.score).slice(0, 8);
-    document.getElementById('leaderboardRows').innerHTML = top8.map((c, i) => {
-      const fam = SU_DATA.getFamilyById(c.family);
-      return `<div class="lb-row ${i===0?'gold':''}"><div class="lb-rank ${i===0?'gold':''}">${String(i+1).padStart(2,'0')}</div><div>${i===0?'👑':i===1?'🥈':i===2?'🥉':'·'}</div><div class="lb-name">${c.anonymous?c.handle:c.name}<span class="mono" style="color:var(--ink-3);font-size:11px;margin-left:6px;">${c.handle}</span></div><div><span class="lb-tag">${fam.name}</span></div><div class="mono" style="font-size:12px;color:var(--ink-3);">${c.location}</div><div class="mono" style="font-size:12px;color:var(--ink-3);">${c.availability}</div><div class="lb-score">${c.score}</div></div>`;
+    document.getElementById('heroStack').innerHTML = heroIds.map(id => {
+      const c = SU_DATA.candidates.find(x => x.id === id);
+      return c ? renderCard(c, { compact: true }) : '';
     }).join('');
+
+    // Featured cards
+    document.getElementById('featuredCards').innerHTML =
+      SU_DATA.candidates.slice(0, 5).map(c => renderCard(c)).join('');
+
+    // Leaderboard — top villes
+    const villes = [
+      { rang: '01', ville: 'Saint-Étienne', dept: '42', rendement: '8.4%', prix: '1 250 €/m²', loyer: '8.7 €/m²', tension: 'Forte' },
+      { rang: '02', ville: 'Mulhouse', dept: '68', rendement: '7.9%', prix: '1 380 €/m²', loyer: '8.1 €/m²', tension: 'Forte' },
+      { rang: '03', ville: 'Le Mans', dept: '72', rendement: '7.2%', prix: '1 620 €/m²', loyer: '8.0 €/m²', tension: 'Moyenne' },
+      { rang: '04', ville: 'Limoges', dept: '87', rendement: '6.8%', prix: '1 480 €/m²', loyer: '7.4 €/m²', tension: 'Moyenne' },
+      { rang: '05', ville: 'Roubaix', dept: '59', rendement: '6.5%', prix: '1 710 €/m²', loyer: '7.7 €/m²', tension: 'Forte' },
+      { rang: '06', ville: 'Clermont-Ferrand', dept: '63', rendement: '6.1%', prix: '2 050 €/m²', loyer: '8.1 €/m²', tension: 'Forte' },
+      { rang: '07', ville: 'Toulon', dept: '83', rendement: '5.8%', prix: '2 490 €/m²', loyer: '8.8 €/m²', tension: 'Forte' },
+      { rang: '08', ville: 'Antibes', dept: '06', rendement: '5.4%', prix: '4 200 €/m²', loyer: '13.5 €/m²', tension: 'Très forte' },
+    ];
+    document.getElementById('leaderboardRows').innerHTML = villes.map((v, i) => `
+      <div class="lb-row ${i === 0 ? 'gold' : ''}">
+        <div class="lb-rank ${i === 0 ? 'gold' : ''}">${v.rang}</div>
+        <div>${i===0?'🏆':i===1?'🥈':i===2?'🥉':'·'}</div>
+        <div class="lb-name">${v.ville} <span class="mono" style="color:var(--ink-3);font-size:11px;margin-left:6px;">Dép. ${v.dept}</span></div>
+        <div><span class="lb-tag">${v.tension}</span></div>
+        <div class="mono" style="font-size:12px;color:var(--ink-3);">${v.prix}</div>
+        <div class="mono" style="font-size:12px;color:var(--ink-3);">${v.loyer}</div>
+        <div class="lb-score">${v.rendement}</div>
+      </div>`).join('');
   </script>
 
 </body>
