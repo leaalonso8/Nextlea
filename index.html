@@ -1,1 +1,304 @@
-<!-- NEXTLEA - PUSHED VIA API - FULL VERSION IN NEXT COMMIT -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nextlea — Your next investment. Found.</title>
+  <meta name="description" content="Nextlea est votre chasseur immobilier augmenté par la data.">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .nav { background: var(--ink) !important; border-bottom: none; }
+    .nav-logo { color: var(--white) !important; }
+    .nav-links a { color: rgba(255,255,255,.65) !important; }
+    .nav-links a:hover { background: rgba(255,255,255,.08) !important; color: var(--white) !important; }
+    .nav-links a.active { color: var(--white) !important; }
+    .nav-links a.active::after { background: var(--blue) !important; }
+    .hero { position: relative; padding: 60px 0 80px; overflow: hidden; background: var(--white); }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+    .hero h1 { font-size: clamp(56px, 7vw, 104px); margin: 24px 0 28px; color: var(--ink); }
+    .hero p.lede { font-size: 19px; color: var(--ink-3); max-width: 540px; margin-bottom: 36px; line-height: 1.55; }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-stage { position: relative; aspect-ratio: 1; perspective: 1400px; }
+    .hero-card-stack { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .hero-card-stack .pcard { position: absolute; transition: transform .7s cubic-bezier(.22,1,.36,1); }
+    .hero-card-stack .pcard:nth-child(1) { transform: translateX(-95px) translateY(24px) rotate(-12deg); z-index: 1; }
+    .hero-card-stack .pcard:nth-child(2) { transform: translateY(0) rotate(2deg); z-index: 3; }
+    .hero-card-stack .pcard:nth-child(3) { transform: translateX(95px) translateY(24px) rotate(10deg); z-index: 2; }
+    .hero-stage:hover .pcard:nth-child(1) { transform: translateX(-170px) translateY(0) rotate(-18deg); }
+    .hero-stage:hover .pcard:nth-child(2) { transform: translateY(-14px) rotate(0) scale(1.04); z-index: 4; }
+    .hero-stage:hover .pcard:nth-child(3) { transform: translateX(170px) translateY(0) rotate(16deg); }
+    .hero-meta { position: absolute; bottom: -20px; right: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); letter-spacing: .1em; text-transform: uppercase; }
+    .pcard { background: #fff; border-radius: 12px; overflow: hidden; width: 262px; box-shadow: 0 4px 20px rgba(0,0,0,.13); font-family: var(--font-mono); }
+    .pcard-img-wrap { position: relative; }
+    .pcard-img { width: 100%; height: 150px; object-fit: cover; display: block; }
+    .pcard-badge { position: absolute; top: 10px; left: 10px; background: #16a34a; color: #fff; font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; }
+    .pcard-body { padding: 14px; }
+    .pcard-kpis { display: flex; gap: 0; border: 1px solid rgba(0,0,0,.09); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+    .pcard-kpi { flex: 1; padding: 9px 6px; text-align: center; border-right: 1px solid rgba(0,0,0,.09); }
+    .pcard-kpi:last-child { border-right: none; }
+    .pcard-kpi-num { font-family: var(--font-display); font-size: 19px; font-weight: 900; line-height: 1; color: var(--ink); }
+    .pcard-kpi-num.green { color: #16a34a; }
+    .pcard-kpi-num.blue { color: var(--blue); }
+    .pcard-kpi-lbl { font-size: 8px; letter-spacing: .08em; text-transform: uppercase; color: rgba(0,0,0,.4); margin-top: 3px; }
+    .pcard-title { font-family: var(--font-display); font-size: 13px; font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 7px; }
+    .pcard-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+    .pcard-tag { font-size: 9px; letter-spacing: .06em; text-transform: uppercase; background: rgba(15,31,61,.07); color: var(--ink); padding: 2px 7px; border-radius: 20px; }
+    .pcard-tag.green { background: #dcfce7; color: #15803d; }
+    .pcard-tag.yellow { background: #fef9c3; color: #854d0e; }
+    .pcard-verified { display: flex; align-items: center; gap: 5px; font-size: 9px; color: rgba(0,0,0,.38); letter-spacing: .06em; text-transform: uppercase; margin-top: 11px; padding-top: 11px; border-top: 1px solid rgba(0,0,0,.07); }
+    .pcard-verified::before { content: "\2605"; color: var(--blue); }
+    .hero-kpi-band { background: var(--ink); padding: 40px 0; }
+    .hero-kpi { display: flex; gap: 0; flex-wrap: wrap; }
+    .hero-kpi > div { flex: 1; min-width: 160px; padding: 0 40px; border-right: 1px solid rgba(255,255,255,.12); }
+    .hero-kpi > div:first-child { padding-left: 0; }
+    .hero-kpi > div:last-child { border-right: none; }
+    .hero-kpi .kpi-num { font-family: var(--font-display); font-size: 48px; font-weight: 900; line-height: 1; }
+    .hero-kpi .kpi-lbl { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-top: 6px; }
+    .hero-kpi > div:nth-child(1) .kpi-num { color: var(--blue); }
+    .hero-kpi > div:nth-child(2) .kpi-num { color: var(--red); }
+    .hero-kpi > div:nth-child(3) .kpi-num { color: var(--green); }
+    .steps-wrap { background: var(--ink); padding: 80px 0; }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1.5px solid rgba(255,255,255,.15); border-radius: 6px; overflow: hidden; }
+    .step { padding: 32px 24px; background: transparent; border-right: 1.5px solid rgba(255,255,255,.1); position: relative; min-height: 280px; display: flex; flex-direction: column; }
+    .step:last-child { border-right: none; }
+    .step:nth-child(1) { border-top: 3px solid var(--blue); }
+    .step:nth-child(2) { border-top: 3px solid var(--red); }
+    .step:nth-child(3) { border-top: 3px solid var(--yellow); }
+    .step:nth-child(4) { border-top: 3px solid var(--green); }
+    .step-num { font-family: var(--font-display); font-size: 80px; font-weight: 900; line-height: .8; margin-bottom: 16px; }
+    .step h3 { font-size: 22px; margin-bottom: 10px; color: var(--white); }
+    .step p { color: rgba(255,255,255,.65); font-size: 14px; line-height: 1.55; }
+    .step .step-tag { margin-top: auto; font-family: var(--font-mono); font-size: 10px; color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase; padding-top: 16px; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1.5px solid var(--ink); border-radius: 6px; overflow: hidden; }
+    .col { padding: 48px; position: relative; min-height: 460px; }
+    .col-investisseur { background: var(--ink); color: var(--white); }
+    .col-data { background: var(--white); color: var(--ink); border-left: 1.5px solid var(--ink); }
+    .col h2 { font-size: 56px; margin: 20px 0 16px; }
+    .col h2 small { display: block; font-size: 16px; font-family: var(--font-mono); letter-spacing: .2em; font-weight: 400; margin-bottom: 8px; }
+    .col-investisseur h2 small { color: var(--blue); }
+    .col-data h2 small { color: var(--blue); }
+    .col p { font-size: 16px; line-height: 1.6; max-width: 460px; margin-bottom: 12px; }
+    .col-investisseur p { color: rgba(255,255,255,.75); }
+    .col-data p { color: var(--ink-3); }
+    .col ul { list-style: none; margin: 24px 0; }
+    .col ul li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.1); display: flex; gap: 12px; align-items: flex-start; font-size: 15px; }
+    .col-data ul li { border-bottom-color: var(--white-3); }
+    .col-investisseur ul li::before { content: '\2192'; font-family: var(--font-display); color: var(--blue); flex-shrink: 0; }
+    .col-data ul li::before { content: '\2192'; font-family: var(--font-display); color: var(--green); flex-shrink: 0; }
+    .faq { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+    .faq details { border-bottom: 1px solid var(--ink); padding: 16px 0; }
+    .faq summary { cursor: pointer; font-family: var(--font-display); font-size: 20px; text-transform: uppercase; letter-spacing: -.01em; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--ink); }
+    .faq summary::after { content: '+'; font-size: 28px; color: var(--blue); }
+    .faq details[open] summary::after { content: '\2212'; color: var(--red); }
+    .faq p { margin-top: 12px; color: var(--ink-3); font-size: 15px; line-height: 1.55; }
+    .cta-final { background: var(--ink); color: var(--white); padding: 100px 0; position: relative; overflow: hidden; }
+    .cta-final::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--blue) 25%, var(--red) 25% 50%, var(--yellow) 50% 75%, var(--green) 75%); }
+    @media (max-width: 900px) {
+      .hero-grid, .two-col, .steps, .faq { grid-template-columns: 1fr; }
+      .steps .step { border-right: none; border-bottom: 1.5px solid rgba(255,255,255,.1); }
+      .col-data { border-left: none; border-top: 1.5px solid var(--ink); }
+      .hero-stage { display: none; }
+      .hero-kpi > div { border-right: none; border-bottom: 1px solid rgba(255,255,255,.12); padding: 20px 0; }
+      .hero-kpi > div:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <nav class="nav">
+    <a class="nav-logo" href="index.html"><span class="dot"></span>Nextlea</a>
+    <div class="nav-links">
+      <a href="index.html" class="active">Accueil</a>
+      <a href="invest.html">Déposer mon projet</a>
+      <a href="marketplace.html">Les biens</a>
+      <a href="profil.html">Exemple de dossier</a>
+    </div>
+    <a href="invest.html" class="btn blue sm">Trouver mon bien &rarr;</a>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">Chasseur immobilier &middot; Data &middot; Rendement locatif</span>
+          <h1>Votre prochain<br>investissement.<br><span class="accent-word">Trouv&eacute;.</span></h1>
+          <p class="lede">Nextlea croise les annonces du march&eacute;, les donn&eacute;es DVF et les loyers r&eacute;els pour vous livrer une shortlist qualifi&eacute;e &mdash; rendement brut, net et cashflow calcul&eacute;s.</p>
+          <div class="hero-cta">
+            <a href="invest.html" class="btn blue">&#9654; D&eacute;poser mon projet d&rsquo;investissement</a>
+            <a href="marketplace.html" class="btn outline">Voir les biens s&eacute;lectionn&eacute;s &rarr;</a>
+          </div>
+        </div>
+        <div class="hero-stage">
+          <div class="hero-card-stack" id="heroStack"></div>
+          <div class="hero-meta">&darr; Survole la pile &middot; voir le d&eacute;tail</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider-google">
+
+  <div class="hero-kpi-band">
+    <div class="container">
+      <div class="hero-kpi">
+        <div><div class="kpi-num">48h</div><div class="kpi-lbl">D&eacute;lai shortlist</div></div>
+        <div><div class="kpi-num">+6%</div><div class="kpi-lbl">Rendement brut moyen</div></div>
+        <div><div class="kpi-num">100%</div><div class="kpi-lbl">Au succ&egrave;s</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-google">
+
+  <div class="marquee"><div class="marquee-track"><span>Data &gt; intuition</span><span class="g-blue"> &#9733; </span><span>Rendement calcul&eacute; avant achat</span><span class="g-red"> &#9733; </span><span>DVF &middot; Loyers &middot; Fiscalit&eacute;</span><span class="g-yellow"> &#9733; </span><span>Honoraires au succ&egrave;s uniquement</span><span class="g-green"> &#9733; </span><span>Data &gt; intuition</span><span class="g-blue"> &#9733; </span><span>Rendement calcul&eacute; avant achat</span><span class="g-red"> &#9733; </span><span>DVF &middot; Loyers &middot; Fiscalit&eacute;</span><span class="g-yellow"> &#9733; </span><span>Honoraires au succ&egrave;s uniquement</span><span class="g-green"> &#9733; </span></div></div>
+
+  <hr class="divider-google">
+
+  <div class="steps-wrap">
+    <div class="container">
+      <span class="eyebrow" style="color:var(--white);margin-bottom:8px;display:inline-flex;">La m&eacute;thode Nextlea</span>
+      <h1 style="font-size:64px;margin:16px 0 48px;color:var(--white);">Investir autrement.<br><small style="font-size:0.4em;font-weight:400;opacity:0.4;letter-spacing:0.05em;color:var(--white);">De votre profil &agrave; l&rsquo;acquisition &darr;</small></h1>
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><h3>Votre profil investisseur</h3><p>Budget, apport, rentabilit&eacute; minimum, r&eacute;gime fiscal (LMNP, SCI&hellip;), villes cibles, objectif patrimonial. On construit votre fiche en 10 minutes.</p><div class="step-tag">&rarr; Formulaire intelligent en ligne</div></div>
+        <div class="step"><div class="step-num">02</div><h3>Matching data</h3><p>On croise vos crit&egrave;res avec les annonces du march&eacute;, les prix DVF r&eacute;els et les loyers moyens par quartier. Z&eacute;ro biais, z&eacute;ro perte de temps.</p><div class="step-tag">&rarr; DVF &middot; Jinka &middot; CLAMEUR</div></div>
+        <div class="step"><div class="step-num">03</div><h3>Shortlist qualifi&eacute;e</h3><p>L&eacute;a analyse les biens pr&eacute;-filtr&eacute;s et vous livre une s&eacute;lection resserr&eacute;e avec rendement brut, net et cashflow mensuel calcul&eacute;s pour chaque bien.</p><div class="step-tag">&rarr; 3 &agrave; 5 biens &middot; sous 48h</div></div>
+        <div class="step"><div class="step-num">04</div><h3>Accompagnement</h3><p>Visites, n&eacute;gociation, simulation fiscale, mise en relation notaire. On reste dans la boucle jusqu&rsquo;&agrave; l&rsquo;acte. Honoraires uniquement si vous achetez.</p><div class="step-tag">&rarr; 2 000 &ndash; 5 000 &euro; au succ&egrave;s</div></div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-google">
+
+  <section class="section" style="padding-top:0;padding-bottom:0;">
+    <div class="container">
+      <div class="two-col">
+        <div class="col col-investisseur">
+          <span class="eyebrow" style="color:var(--blue)">Pour l&rsquo;investisseur</span>
+          <h2><small>C&ocirc;t&eacute; client</small>Stop aux<br>annonces inutiles.</h2>
+          <p>Vous passez des heures sur SeLoger, LeBonCoin, PAP &mdash; pour des biens sur&eacute;valu&eacute;s, mal situ&eacute;s, sans calcul de rentabilit&eacute;. Nextlea fait ce travail &agrave; votre place, avec la data.</p>
+          <ul>
+            <li>Une shortlist de 3 &agrave; 5 biens qualifi&eacute;s sous 48h &mdash; pas 200 annonces &agrave; trier</li>
+            <li>Rendement brut, net et cashflow calcul&eacute;s sur chaque bien avant votre premi&egrave;re visite</li>
+            <li>Accompagnement fiscal inclus : LMNP, LMP, SCI IS/IR &mdash; on choisit le bon r&eacute;gime avec vous</li>
+            <li>Honoraires uniquement si vous achetez &mdash; alignement total avec vos int&eacute;r&ecirc;ts</li>
+          </ul>
+          <a href="invest.html" class="btn blue">D&eacute;poser mon projet &rarr;</a>
+        </div>
+        <div class="col col-data">
+          <span class="eyebrow" style="color:var(--green)">La diff&eacute;rence Nextlea</span>
+          <h2><small>C&ocirc;t&eacute; m&eacute;thode</small>Data.<br>Calcul. R&eacute;sultat.</h2>
+          <p>Pas un chasseur qui cherche &agrave; l&rsquo;&oelig;il. Un moteur de matching qui croise prix r&eacute;els (DVF), loyers moyens et fiscalit&eacute; pour ne vous pr&eacute;senter que ce qui tient la route.</p>
+          <ul>
+            <li>Prix DVF r&eacute;els &mdash; pas les prix affich&eacute;s, les prix sign&eacute;s</li>
+            <li>Loyers moyens par quartier issus de CLAMEUR et LocService</li>
+            <li>&Eacute;cart prix demand&eacute; / march&eacute; calcul&eacute; automatiquement</li>
+            <li><strong>Premiers dossiers trait&eacute;s d&egrave;s maintenant sur la C&ocirc;te d&rsquo;Azur</strong></li>
+          </ul>
+          <a href="marketplace.html" class="btn">Voir les biens &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider-google">
+
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px;">
+        <div><span class="eyebrow">S&eacute;lection du moment</span><h1 style="font-size:56px;margin-top:12px;color:var(--ink);">Biens en cours d&rsquo;analyse.</h1></div>
+        <a href="marketplace.html" class="btn outline sm">Tout voir &rarr;</a>
+      </div>
+      <div style="background:var(--white-2);border:1.5px solid var(--white-3);border-radius:6px;padding:48px;text-align:center;color:var(--ink-3);font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;">Biens en cours d&rsquo;analyse &middot; shortlist sous 48h</div>
+    </div>
+  </section>
+
+  <hr class="divider-google">
+
+  <section class="section" style="padding-top:60px;">
+    <div class="container">
+      <span class="eyebrow">Radar march&eacute;</span>
+      <h1 style="font-size:56px;margin:12px 0 32px;color:var(--ink);">Top villes &middot; rendement locatif &middot; 2026</h1>
+      <div class="leaderboard">
+        <div class="lb-header"><span>Classement rendement brut moyen</span><span class="mono" style="font-size:12px;letter-spacing:.1em;">SOURCE : DVF + CLAMEUR &middot; MAI 2026</span></div>
+        <div id="leaderboardRows"></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider-google">
+
+  <section class="section">
+    <div class="container">
+      <span class="eyebrow">Questions fr&eacute;quentes</span>
+      <h1 style="font-size:48px;margin:12px 0 32px;color:var(--ink);">Ce que vous vous demandez.</h1>
+      <div class="faq">
+        <details><summary>C&rsquo;est combien&nbsp;?</summary><p>Honoraires au succ&egrave;s uniquement : 2 000 &agrave; 5 000 &euro; pay&eacute;s le jour de l&rsquo;acte, selon la complexit&eacute; du dossier. Z&eacute;ro frais si vous n&rsquo;achetez pas. Pack Premium disponible &agrave; 500 &euro;.</p></details>
+        <details><summary>Quelle zone g&eacute;ographique&nbsp;?</summary><p>Actuellement focalis&eacute; sur la C&ocirc;te d&rsquo;Azur (Antibes, Nice, Cannes, Sophia-Antipolis) et les principales m&eacute;tropoles fran&ccedil;aises &agrave; rendement av&eacute;r&eacute;. Extension progressive selon la demande.</p></details>
+        <details><summary>Comment calculez-vous le rendement&nbsp;?</summary><p>Rendement brut = loyer annuel estim&eacute; / prix d&rsquo;acquisition. Rendement net = d&eacute;duction charges, taxe fonci&egrave;re, frais de gestion. Cashflow = loyer net mensuel &minus; mensualit&eacute; cr&eacute;dit.</p></details>
+        <details><summary>Et la fiscalit&eacute;&nbsp;?</summary><p>On analyse votre TMI, votre situation personnelle (SCI ou nom propre) et on mod&eacute;lise l&rsquo;impact de chaque r&eacute;gime : micro-BIC, r&eacute;el LMNP, LMP, SCI IS. Vous d&eacute;cidez en connaissance de cause.</p></details>
+        <details><summary>Je suis d&eacute;butant, c&rsquo;est fait pour moi&nbsp;?</summary><p>Oui. Nextlea accompagne aussi bien les primo-investisseurs que les portefeuilles avanc&eacute;s.</p></details>
+        <details><summary>Combien de temps avant ma shortlist&nbsp;?</summary><p>48h ouvr&eacute;es apr&egrave;s r&eacute;ception de votre profil complet. En pratique, souvent moins.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider-google">
+
+  <section class="cta-final">
+    <div class="container" style="text-align:center;position:relative;">
+      <span class="eyebrow" style="color:var(--white);justify-content:center;">Votre prochain investissement</span>
+      <h1 style="font-size:clamp(64px,9vw,140px);margin:24px 0;color:var(--white);">Trouv&eacute;.<br><span style="color:var(--blue);font-family:var(--font-serif);font-style:italic;text-transform:none;font-weight:400;">Calcul&eacute;. Acquis.</span></h1>
+      <p style="font-size:18px;color:rgba(255,255,255,.6);max-width:540px;margin:0 auto 36px;">D&eacute;posez votre projet en 10 minutes. Recevez une shortlist qualifi&eacute;e sous 48h. Payez uniquement si vous achetez.</p>
+      <a href="invest.html" class="btn blue">&#9654; D&eacute;marrer mon projet d&rsquo;investissement</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="font-family:var(--font-display);font-size:22px;font-weight:900;letter-spacing:-.02em;margin-bottom:16px;display:flex;align-items:center;gap:8px;"><span style="width:12px;height:12px;border-radius:50%;background:conic-gradient(var(--blue) 0deg 90deg,var(--red) 90deg 180deg,var(--yellow) 180deg 270deg,var(--green) 270deg 360deg);flex-shrink:0;"></span>NEXTLEA</div>
+          <p style="color:rgba(255,255,255,.55);font-size:14px;line-height:1.6;max-width:260px;">Chasseur immobilier augment&eacute; par la data. Rendement locatif calcul&eacute;, fiscalit&eacute; optimis&eacute;e, biens qualifi&eacute;s livr&eacute;s.</p>
+        </div>
+        <div class="footer-col"><h4>Investisseurs</h4><a href="invest.html">D&eacute;poser mon projet</a><a href="invest.html#tarifs">Honoraires</a><a href="#faq">FAQ</a></div>
+        <div class="footer-col"><h4>Biens</h4><a href="marketplace.html">S&eacute;lection en cours</a><a href="marketplace.html">Par ville</a><a href="marketplace.html">Par rendement</a></div>
+        <div class="footer-col"><h4>Nextlea</h4><a href="#">&Agrave; propos</a><a href="#">Confidentialit&eacute;</a><a href="#">Mentions l&eacute;gales</a></div>
+      </div>
+      <div class="footer-bottom"><span>&copy; 2026 NEXTLEA. TOUS DROITS R&Eacute;SERV&Eacute;S.</span><span class="mono">YOUR NEXT INVESTMENT. FOUND.</span></div>
+    </div>
+  </footer>
+
+  <script>
+    // Build hero cards with real photos
+    const cards = [
+      { img: 'IMG1_B64', title: 'T3 meublé · 58 m²', kpis: [['6.2%','Rdt brut','green'],['+ 184€','Cashflow','blue'],['4.1%','Net net','']], tags: [['Antibes',''],['LMNP',''],['DPE C','green']] },
+      { img: 'IMG2_B64', title: 'Haussmannien · 75 m²', kpis: [['5.8%','Rdt brut','green'],['+ 212€','Cashflow','blue'],['3.9%','Net net','']], tags: [['Cannes',''],['SCI IS',''],['DPE B','green']] },
+      { img: 'IMG3_B64', title: 'Loft atypique · 90 m²', kpis: [['7.4%','Rdt brut','green'],['+ 298€','Cashflow','blue'],['5.1%','Net net','']], tags: [['Nice',''],['Airbnb OK',''],['DPE D','yellow']] },
+    ];
+    document.getElementById('heroStack').innerHTML = cards.map(c => `
+      <div class="pcard">
+        <div class="pcard-img-wrap">
+          <img class="pcard-img" src="data:image/jpeg;base64,${c.img}" alt="${c.title}">
+          <span class="pcard-badge">✓ Analysé</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-kpis">${c.kpis.map(k => `<div class="pcard-kpi"><div class="pcard-kpi-num ${k[2]}">${k[0]}</div><div class="pcard-kpi-lbl">${k[1]}</div></div>`).join('')}</div>
+          <div class="pcard-title">${c.title}</div>
+          <div class="pcard-tags">${c.tags.map(t => `<span class="pcard-tag ${t[1]}">${t[0]}</span>`).join('')}</div>
+          <div class="pcard-verified">Vérifié &middot; DVF + CLAMEUR</div>
+        </div>
+      </div>`).join('');
+    const villes = [
+      { rang: '01', ville: 'Saint-Étienne', dept: '42', rendement: '8.4%', prix: '1 250 €/m²', loyer: '8.7 €/m²', tension: 'Forte' },
+      { rang: '02', ville: 'Mulhouse', dept: '68', rendement: '7.9%', prix: '1 380 €/m²', loyer: '8.1 €/m²', tension: 'Forte' },
+      { rang: '03', ville: 'Le Mans', dept: '72', rendement: '7.2%', prix: '1 620 €/m²', loyer: '8.0 €/m²', tension: 'Moyenne' },
+      { rang: '04', ville: 'Limoges', dept: '87', rendement: '6.8%', prix: '1 480 €/m²', loyer: '7.4 €/m²', tension: 'Moyenne' },
+      { rang: '05', ville: 'Roubaix', dept: '59', rendement: '6.5%', prix: '1 710 €/m²', loyer: '7.7 €/m²', tension: 'Forte' },
+      { rang: '06', ville: 'Clermont-Ferrand', dept: '63', rendement: '6.1%', prix: '2 050 €/m²', loyer: '8.1 €/m²', tension: 'Forte' },
+      { rang: '07', ville: 'Toulon', dept: '83', rendement: '5.8%', prix: '2 490 €/m²', loyer: '8.8 €/m²', tension: 'Forte' },
+      { rang: '08', ville: 'Antibes', dept: '06', rendement: '5.4%', prix: '4 200 €/m²', loyer: '13.5 €/m²', tension: 'Très forte' },
+    ];
+    document.getElementById('leaderboardRows').innerHTML = villes.map((v, i) => `<div class="lb-row ${i===0?'gold':''}"><div class="lb-rank ${i===0?'gold':''}">${v.rang}</div><div>${i===0?'🏆':i===1?'🥈':i===2?'🥉':'&middot;'}</div><div class="lb-name">${v.ville} <span class="mono" style="color:var(--ink-3);font-size:11px;margin-left:6px;">Dép. ${v.dept}</span></div><div><span class="lb-tag">${v.tension}</span></div><div class="mono" style="font-size:12px;color:var(--ink-3);">${v.prix}</div><div class="mono" style="font-size:12px;color:var(--ink-3);">${v.loyer}</div><div class="lb-score">${v.rendement}</div></div>`).join('');
+  </script>
+</body>
+</html>
