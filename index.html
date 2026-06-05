@@ -76,17 +76,27 @@
     background: #E8E1D4;
     box-shadow: 0 2px 20px rgba(0,0,0,0.1);
   }
+
+  /* LOGO SVG INLINE */
   .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    font-weight: 300;
-    letter-spacing: 0.25em;
-    color: #1a140a;
     text-decoration: none;
-    display: flex; flex-direction: column; gap: 0.05rem;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.18rem;
     line-height: 1;
   }
-  .nav-logo span { color: var(--gold); }
+  .nav-logo svg.logo-icon {
+    display: block;
+  }
+  .nav-logo-wordmark {
+    display: flex; align-items: baseline; gap: 0;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    line-height: 1;
+  }
+  .nav-logo-wordmark .logo-next { color: #1a140a; }
+  .nav-logo-wordmark .logo-lea  { color: #8B765B; }
+
   .nav-tagline {
     font-family: var(--sans); font-size: 0.48rem;
     letter-spacing: 0.22em; text-transform: uppercase;
@@ -147,7 +157,6 @@
     position: absolute; inset: 0;
     background: linear-gradient(105deg, rgba(8,8,8,0.88) 35%, rgba(8,8,8,0.5) 80%, rgba(8,8,8,0.82) 100%);
   }
-  /* Fondu droit : la photo se dissout progressivement vers le noir */
   .hero-blend {
     position: absolute; top: 0; right: 0;
     width: 55%; height: 100%;
@@ -165,10 +174,9 @@
     padding: 0 6vw 0 8vw; max-width: 600px;
   }
 
-  /* HERO RIGHT PANEL — fondu progressif noir → gris clair */
+  /* HERO RIGHT PANEL */
   .hero-right {
     position: relative;
-    /* Départ noir (continuité avec hero-left), fondu long vers gris clair warm */
     background: linear-gradient(
       to right,
       #080808 0%,
@@ -196,7 +204,7 @@
     flex-shrink: 0;
   }
 
-  /* PROPERTY PROFILE CARD — SalesUncut style, light cream */
+  /* PROPERTY PROFILE CARD */
   .ppc {
     position: absolute;
     width: 210px;
@@ -209,134 +217,53 @@
     transform-origin: bottom center;
     transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, z-index 0s;
   }
-  /* card positions in the fan */
-  .ppc:nth-child(1) {
-    left: 20px; top: 28px;
-    transform: rotate(-9deg);
-    z-index: 1;
-  }
-  .ppc:nth-child(2) {
-    left: 155px; top: 0;
-    transform: rotate(0deg);
-    z-index: 3;
-  }
-  .ppc:nth-child(3) {
-    left: 290px; top: 28px;
-    transform: rotate(9deg);
-    z-index: 2;
-  }
+  .ppc:nth-child(1) { left: 20px; top: 28px; transform: rotate(-9deg); z-index: 1; }
+  .ppc:nth-child(2) { left: 155px; top: 0; transform: rotate(0deg); z-index: 3; }
+  .ppc:nth-child(3) { left: 290px; top: 28px; transform: rotate(9deg); z-index: 2; }
   .ppc:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
   .ppc:nth-child(1):hover { transform: rotate(-9deg) translateY(-10px); }
   .ppc:nth-child(2):hover { transform: rotate(0deg) translateY(-10px); }
   .ppc:nth-child(3):hover { transform: rotate(9deg) translateY(-10px); }
 
-  /* Card header: name + score */
   .ppc-header {
     padding: 0.85rem 0.85rem 0.5rem;
     display: flex; justify-content: space-between; align-items: flex-start;
   }
-  .ppc-name {
-    font-size: 0.78rem; font-weight: 700; color: #1a140a;
-    line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em;
-  }
-  .ppc-status {
-    font-size: 0.6rem; color: rgba(26,20,10,0.45); margin-top: 0.2rem;
-    display: flex; align-items: center; gap: 0.35rem;
-  }
-  .ppc-status-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #5a8a3c; flex-shrink: 0;
-  }
+  .ppc-name { font-size: 0.78rem; font-weight: 700; color: #1a140a; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; }
+  .ppc-status { font-size: 0.6rem; color: rgba(26,20,10,0.45); margin-top: 0.2rem; display: flex; align-items: center; gap: 0.35rem; }
+  .ppc-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #5a8a3c; flex-shrink: 0; }
   .ppc-score-block { text-align: right; }
-  .ppc-score-num {
-    font-size: 1.5rem; font-weight: 800; color: #1a140a; line-height: 1;
-  }
-  .ppc-score-max {
-    font-size: 0.65rem; font-weight: 400; color: rgba(26,20,10,0.45);
-  }
+  .ppc-score-num { font-size: 1.5rem; font-weight: 800; color: #1a140a; line-height: 1; }
+  .ppc-score-max { font-size: 0.65rem; font-weight: 400; color: rgba(26,20,10,0.45); }
 
-  /* Photo */
-  .ppc-photo {
-    position: relative; height: 148px; overflow: hidden;
-    margin: 0 0.65rem; border-radius: 8px;
-  }
-  .ppc-photo img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.6s ease;
-  }
+  .ppc-photo { position: relative; height: 148px; overflow: hidden; margin: 0 0.65rem; border-radius: 8px; }
+  .ppc-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
   .ppc:hover .ppc-photo img { transform: scale(1.05); }
-  .ppc-loc-tag {
-    position: absolute; bottom: 0.55rem; left: 0.55rem;
-    background: #2a1f0f; color: #f4ede0;
-    font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em;
-    padding: 0.25rem 0.65rem; border-radius: 4px;
-    text-transform: uppercase;
-  }
-  .ppc-tier-tag {
-    position: absolute; bottom: 0.55rem; right: 0.55rem;
-    font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em;
-    padding: 0.25rem 0.65rem; border-radius: 4px;
-    text-transform: uppercase;
-  }
+  .ppc-loc-tag { position: absolute; bottom: 0.55rem; left: 0.55rem; background: #2a1f0f; color: #f4ede0; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; padding: 0.25rem 0.65rem; border-radius: 4px; text-transform: uppercase; }
+  .ppc-tier-tag { position: absolute; bottom: 0.55rem; right: 0.55rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.25rem 0.65rem; border-radius: 4px; text-transform: uppercase; }
   .ppc-tier-tag.gold { background: var(--gold); color: #1a140a; }
   .ppc-tier-tag.silver { background: #9EA5AE; color: #1a140a; }
   .ppc-tier-tag.green { background: var(--olive); color: #fff; }
 
-  /* Metrics */
-  .ppc-metrics {
-    padding: 0.7rem 0.85rem 0;
-    display: flex; flex-direction: column; gap: 0.3rem;
-  }
-  .ppc-metric {
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .ppc-metric-label {
-    font-size: 0.58rem; color: rgba(26,20,10,0.45); text-transform: uppercase;
-    letter-spacing: 0.06em; width: 84px; flex-shrink: 0;
-  }
-  .ppc-metric-bar {
-    flex: 1; height: 3.5px; border-radius: 2px;
-    background: rgba(26,20,10,0.1); overflow: hidden;
-  }
-  .ppc-metric-fill {
-    height: 100%; border-radius: 2px;
-    background: #3a2e18;
-  }
-  .ppc-metric-val {
-    font-size: 0.65rem; font-weight: 600; color: #1a140a;
-    width: 34px; text-align: right; flex-shrink: 0;
-  }
+  .ppc-metrics { padding: 0.7rem 0.85rem 0; display: flex; flex-direction: column; gap: 0.3rem; }
+  .ppc-metric { display: flex; align-items: center; gap: 0.5rem; }
+  .ppc-metric-label { font-size: 0.58rem; color: rgba(26,20,10,0.45); text-transform: uppercase; letter-spacing: 0.06em; width: 84px; flex-shrink: 0; }
+  .ppc-metric-bar { flex: 1; height: 3.5px; border-radius: 2px; background: rgba(26,20,10,0.1); overflow: hidden; }
+  .ppc-metric-fill { height: 100%; border-radius: 2px; background: #3a2e18; }
+  .ppc-metric-val { font-size: 0.65rem; font-weight: 600; color: #1a140a; width: 34px; text-align: right; flex-shrink: 0; }
+  .ppc-footer { padding: 0.6rem 0.85rem 0.85rem; font-size: 0.6rem; color: rgba(26,20,10,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
 
-  /* Footer */
-  .ppc-footer {
-    padding: 0.6rem 0.85rem 0.85rem;
-    font-size: 0.6rem; color: rgba(26,20,10,0.4);
-    text-transform: uppercase; letter-spacing: 0.1em;
-  }
-  .hero-eyebrow {
-    font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase;
-    color: var(--gold); font-weight: 400; margin-bottom: 2rem;
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .hero-eyebrow::before {
-    content: ''; display: block;
-    width: 40px; height: 1px; background: var(--gold);
-  }
   .hero-h1 {
     font-family: var(--serif);
     font-size: clamp(3rem, 5.5vw, 5.5rem);
     font-weight: 300; line-height: 1.08;
     color: var(--white); margin-bottom: 0.25rem;
   }
-  .hero-h1 em {
-    font-style: italic; color: var(--gold);
-    display: block;
-  }
+  .hero-h1 em { font-style: italic; color: var(--gold); display: block; }
   .hero-sub {
     margin-top: 1.8rem; margin-bottom: 2.8rem;
     font-size: 0.9rem; line-height: 1.8;
-    color: rgba(250,250,248,0.65); max-width: 400px;
-    font-weight: 300;
+    color: rgba(250,250,248,0.65); max-width: 400px; font-weight: 300;
   }
   .btn-primary {
     display: inline-flex; align-items: center; gap: 0.75rem;
@@ -358,33 +285,13 @@
   }
   .btn-outline:hover { border-color: var(--gold); color: var(--gold); gap: 1.25rem; }
   .hero-btns { display: flex; gap: 1rem; flex-wrap: nowrap; align-items: center; }
-  .hero-bottom {
-    margin-top: 2.2rem;
-    display: flex; align-items: flex-start; gap: 2rem;
-    flex-wrap: wrap;
-  }
+  .hero-bottom { margin-top: 2.2rem; display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
   .hero-stat-inline { text-align: left; }
-  .hero-stat-inline .hero-stat-num {
-    font-family: var(--serif);
-    font-size: 1.8rem; font-weight: 300; color: var(--gold); line-height: 1;
-  }
-  .hero-stat-inline .hero-stat-label {
-    font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase;
-    color: rgba(250,250,248,0.38); margin-top: 0.2rem;
-  }
-  .hero-divider-v {
-    width: 1px; height: 36px; background: rgba(139,118,91,0.2);
-    flex-shrink: 0; align-self: center;
-  }
-  .hero-cert-label {
-    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(250,250,248,0.3); align-self: center;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .hero-cert-label::before {
-    content: ''; display: block;
-    width: 14px; height: 1px; background: rgba(139,118,91,0.4);
-  }
+  .hero-stat-inline .hero-stat-num { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .hero-stat-inline .hero-stat-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,250,248,0.38); margin-top: 0.2rem; }
+  .hero-divider-v { width: 1px; height: 36px; background: rgba(139,118,91,0.2); flex-shrink: 0; align-self: center; }
+  .hero-cert-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,250,248,0.3); align-self: center; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-cert-label::before { content: ''; display: block; width: 14px; height: 1px; background: rgba(139,118,91,0.4); }
   .hero-scroll {
     position: absolute; bottom: 2.5rem; left: 8vw;
     display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
@@ -392,8 +299,7 @@
     color: rgba(250,250,248,0.4); z-index: 2;
   }
   .hero-scroll::after {
-    content: ''; display: block;
-    width: 1px; height: 48px;
+    content: ''; display: block; width: 1px; height: 48px;
     background: linear-gradient(to bottom, rgba(139,118,91,0.6), transparent);
     animation: scrollPulse 2s infinite;
   }
@@ -401,20 +307,8 @@
     0%,100% { opacity: 1; transform: scaleY(1); }
     50% { opacity: 0.4; transform: scaleY(0.6); }
   }
-  .hero-stats {
-    position: absolute; bottom: 2.5rem; right: 2.5rem;
-    display: flex; gap: 2rem; z-index: 2;
-  }
-  .hero-stat { text-align: right; }
-  .hero-stat-num {
-    font-family: var(--serif);
-    font-size: 2.2rem; font-weight: 300; color: var(--gold);
-    line-height: 1;
-  }
-  .hero-stat-label {
-    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(250,250,248,0.4); margin-top: 0.3rem;
-  }
+  .hero-stat-num { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .hero-stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,250,248,0.4); margin-top: 0.3rem; }
 
   /* SECTION UTILITIES */
   section { position: relative; }
@@ -423,23 +317,11 @@
     color: var(--gold); display: flex; align-items: center; gap: 0.75rem;
     margin-bottom: 1.5rem;
   }
-  .section-tag::before {
-    content: ''; display: block;
-    width: 28px; height: 1px; background: var(--gold);
-  }
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2.2rem, 3.5vw, 3.6rem);
-    font-weight: 300; line-height: 1.15;
-    color: var(--white);
-  }
+  .section-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+  .section-title { font-family: var(--serif); font-size: clamp(2.2rem, 3.5vw, 3.6rem); font-weight: 300; line-height: 1.15; color: var(--white); }
   .section-title em { font-style: italic; color: var(--beige); }
 
-  /* FADE IN ANIMATION */
-  .fade-up {
-    opacity: 0; transform: translateY(40px);
-    transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1);
-  }
+  .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
   .fade-up.visible { opacity: 1; transform: translateY(0); }
   .fade-up:nth-child(2) { transition-delay: 0.1s; }
   .fade-up:nth-child(3) { transition-delay: 0.2s; }
@@ -451,415 +333,136 @@
   .delay-5 { transition-delay: 0.5s !important; }
 
   /* ABOUT */
-  #about {
-    padding: 9rem 8vw;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 6vw;
-    align-items: center;
-    background: var(--noir-soft);
-  }
-  .about-img-wrap {
-    position: relative; aspect-ratio: 4/5; overflow: hidden;
-  }
-  .about-img-wrap img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 6s ease;
-  }
+  #about { padding: 9rem 8vw; display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: center; background: var(--noir-soft); }
+  .about-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
   .about-img-wrap:hover img { transform: scale(1.04); }
-  .about-img-accent {
-    position: absolute; bottom: -1.5rem; right: -1.5rem;
-    width: 48%; aspect-ratio: 1;
-    border: 2px solid rgba(139,118,91,0.25);
-    pointer-events: none;
-  }
-  .about-img-badge {
-    position: absolute; top: 2rem; left: -2rem;
-    background: var(--gold); color: var(--noir);
-    padding: 1.5rem; text-align: center;
-    width: 100px;
-  }
-  .about-img-badge strong {
-    display: block; font-family: var(--serif);
-    font-size: 2rem; font-weight: 300; line-height: 1;
-  }
-  .about-img-badge span {
-    font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-    line-height: 1.4;
-  }
+  .about-img-accent { position: absolute; bottom: -1.5rem; right: -1.5rem; width: 48%; aspect-ratio: 1; border: 2px solid rgba(139,118,91,0.25); pointer-events: none; }
+  .about-img-badge { position: absolute; top: 2rem; left: -2rem; background: var(--gold); color: var(--noir); padding: 1.5rem; text-align: center; width: 100px; }
+  .about-img-badge strong { display: block; font-family: var(--serif); font-size: 2rem; font-weight: 300; line-height: 1; }
+  .about-img-badge span { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; }
   .about-text { padding-left: 2vw; }
-  .about-desc {
-    margin-top: 1.8rem;
-    font-size: 0.92rem; line-height: 1.9;
-    color: rgba(250,250,248,0.6); font-weight: 300;
-  }
-  .about-pillars {
-    margin-top: 3rem;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-  }
-  .pillar {
-    padding: 1.5rem;
-    border: 1px solid rgba(139,118,91,0.12);
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .pillar:hover {
-    border-color: rgba(139,118,91,0.35);
-    background: rgba(139,118,91,0.04);
-  }
-  .pillar-icon {
-    width: 36px; height: 36px; margin-bottom: 1rem;
-    color: var(--gold);
-  }
-  .pillar-title {
-    font-family: var(--serif); font-size: 1.1rem; font-weight: 400;
-    color: var(--white); margin-bottom: 0.5rem;
-  }
-  .pillar-text {
-    font-size: 0.78rem; line-height: 1.7;
-    color: rgba(250,250,248,0.45);
-  }
+  .about-desc { margin-top: 1.8rem; font-size: 0.92rem; line-height: 1.9; color: rgba(250,250,248,0.6); font-weight: 300; }
+  .about-pillars { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .pillar { padding: 1.5rem; border: 1px solid rgba(139,118,91,0.12); transition: border-color 0.3s, background 0.3s; }
+  .pillar:hover { border-color: rgba(139,118,91,0.35); background: rgba(139,118,91,0.04); }
+  .pillar-icon { width: 36px; height: 36px; margin-bottom: 1rem; color: var(--gold); }
+  .pillar-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--white); margin-bottom: 0.5rem; }
+  .pillar-text { font-size: 0.78rem; line-height: 1.7; color: rgba(250,250,248,0.45); }
 
   /* PROPERTIES */
-  #properties {
-    padding: 9rem 8vw;
-    background: var(--noir);
-  }
-  .properties-header {
-    display: flex; justify-content: space-between;
-    align-items: flex-end; margin-bottom: 4rem;
-  }
-  .properties-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-  }
-  .property-card {
-    position: relative; overflow: hidden;
-    aspect-ratio: 3/4;
-    cursor: none;
-  }
-  .property-card img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+  #properties { padding: 9rem 8vw; background: var(--noir); }
+  .properties-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .properties-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .property-card { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: none; }
+  .property-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
   .property-card:hover img { transform: scale(1.06); }
-  .property-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 50%, transparent 100%);
-    transition: background 0.4s;
-  }
-  .property-card:hover .property-overlay {
-    background: linear-gradient(to top, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0.1) 100%);
-  }
-  .property-info {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 2rem 1.8rem;
-    transform: translateY(2.5rem);
-    transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+  .property-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 50%, transparent 100%); transition: background 0.4s; }
+  .property-card:hover .property-overlay { background: linear-gradient(to top, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0.1) 100%); }
+  .property-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.8rem; transform: translateY(2.5rem); transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
   .property-card:hover .property-info { transform: translateY(0); }
-  .property-type {
-    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 0.5rem;
-  }
-  .property-name {
-    font-family: var(--serif); font-size: 1.5rem; font-weight: 300;
-    color: var(--white); line-height: 1.2; margin-bottom: 0.4rem;
-  }
-  .property-loc {
-    font-size: 0.78rem; color: rgba(250,250,248,0.5);
-    margin-bottom: 1rem;
-  }
-  .property-price {
-    font-family: var(--serif); font-size: 1.2rem; color: var(--gold);
-    margin-bottom: 1.2rem;
-  }
-  .property-link {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--white); text-decoration: none;
-    border-bottom: 1px solid rgba(250,250,248,0.2);
-    padding-bottom: 0.25rem;
-    opacity: 0; transition: opacity 0.3s 0.1s;
-  }
+  .property-type { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .property-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 0.4rem; }
+  .property-loc { font-size: 0.78rem; color: rgba(250,250,248,0.5); margin-bottom: 1rem; }
+  .property-price { font-family: var(--serif); font-size: 1.2rem; color: var(--gold); margin-bottom: 1.2rem; }
+  .property-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(250,250,248,0.2); padding-bottom: 0.25rem; opacity: 0; transition: opacity 0.3s 0.1s; }
   .property-card:hover .property-link { opacity: 1; }
   .property-link:hover { color: var(--gold); border-color: var(--gold); }
 
   /* MANAGEMENT */
-  #management {
-    display: grid; grid-template-columns: 1fr 1fr; min-height: 680px;
-  }
-  .mgmt-img {
-    position: relative; overflow: hidden;
-  }
-  .mgmt-img img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 6s ease;
-  }
+  #management { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; }
+  .mgmt-img { position: relative; overflow: hidden; }
+  .mgmt-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
   .mgmt-img:hover img { transform: scale(1.04); }
-  .mgmt-content {
-    background: var(--olive);
-    padding: 7rem 5vw;
-    display: flex; flex-direction: column; justify-content: center;
-  }
+  .mgmt-content { background: var(--olive); padding: 7rem 5vw; display: flex; flex-direction: column; justify-content: center; }
   .mgmt-content .section-tag { color: rgba(250,250,248,0.7); }
   .mgmt-content .section-tag::before { background: rgba(250,250,248,0.5); }
   .mgmt-content .section-title { color: var(--white); }
   .mgmt-content .section-title em { color: var(--beige-light); }
-  .mgmt-desc {
-    margin-top: 1.5rem; margin-bottom: 2.5rem;
-    font-size: 0.88rem; line-height: 1.9;
-    color: rgba(250,250,248,0.7); font-weight: 300;
-    max-width: 380px;
-  }
-  .mgmt-features {
-    list-style: none; display: flex; flex-direction: column; gap: 0.85rem;
-    margin-bottom: 3rem;
-  }
-  .mgmt-features li {
-    display: flex; align-items: flex-start; gap: 0.75rem;
-    font-size: 0.82rem; color: rgba(250,250,248,0.8);
-  }
-  .mgmt-features li::before {
-    content: '';
-    display: block; width: 5px; height: 5px;
-    background: var(--beige-light);
-    border-radius: 50%; margin-top: 0.45rem;
-    flex-shrink: 0;
-  }
-  .btn-cream {
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    font-family: var(--sans); font-size: 0.75rem;
-    font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--noir); background: var(--beige-light);
-    padding: 1rem 2.2rem; text-decoration: none; align-self: flex-start;
-    transition: background 0.25s;
-  }
+  .mgmt-desc { margin-top: 1.5rem; margin-bottom: 2.5rem; font-size: 0.88rem; line-height: 1.9; color: rgba(250,250,248,0.7); font-weight: 300; max-width: 380px; }
+  .mgmt-features { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 3rem; }
+  .mgmt-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.82rem; color: rgba(250,250,248,0.8); }
+  .mgmt-features li::before { content: ''; display: block; width: 5px; height: 5px; background: var(--beige-light); border-radius: 50%; margin-top: 0.45rem; flex-shrink: 0; }
+  .btn-cream { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--noir); background: var(--beige-light); padding: 1rem 2.2rem; text-decoration: none; align-self: flex-start; transition: background 0.25s; }
   .btn-cream:hover { background: var(--cream); }
 
   /* GALLERY STRIP */
-  #gallery {
-    display: grid; grid-template-columns: 2fr 1fr 1fr;
-    height: 60vw; max-height: 700px;
-    gap: 1.5px; overflow: hidden;
-  }
+  #gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; height: 60vw; max-height: 700px; gap: 1.5px; overflow: hidden; }
   .gallery-item { position: relative; overflow: hidden; }
-  .gallery-item img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
   .gallery-item:hover img { transform: scale(1.06); }
-  .gallery-item .gallery-caption {
-    position: absolute; bottom: 1.5rem; left: 1.5rem;
-    font-family: var(--serif); font-size: 1rem; font-style: italic;
-    color: rgba(250,250,248,0.7);
-    opacity: 0; transition: opacity 0.3s;
-  }
+  .gallery-item .gallery-caption { position: absolute; bottom: 1.5rem; left: 1.5rem; font-family: var(--serif); font-size: 1rem; font-style: italic; color: rgba(250,250,248,0.7); opacity: 0; transition: opacity 0.3s; }
   .gallery-item:hover .gallery-caption { opacity: 1; }
 
   /* TESTIMONIALS */
-  #testimonials {
-    padding: 9rem 8vw;
-    background: var(--noir-soft);
-  }
+  #testimonials { padding: 9rem 8vw; background: var(--noir-soft); }
   .testimonials-header { text-align: center; margin-bottom: 5rem; }
-  .testimonials-header .section-tag {
-    justify-content: center;
-  }
+  .testimonials-header .section-tag { justify-content: center; }
   .testimonials-header .section-tag::before { display: none; }
-  .testimonials-header .section-tag::after {
-    content: ''; display: block;
-    width: 28px; height: 1px; background: var(--gold);
-  }
-  .testi-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
-  }
-  .testi-card {
-    padding: 3rem 2.5rem;
-    border: 1px solid rgba(139,118,91,0.1);
-    background: rgba(139,118,91,0.02);
-    transition: border-color 0.3s, background 0.3s;
-    position: relative;
-  }
-  .testi-card:hover {
-    border-color: rgba(139,118,91,0.25);
-    background: rgba(139,118,91,0.05);
-  }
-  .testi-quote {
-    font-family: var(--serif);
-    font-size: 3.5rem; line-height: 0.5;
-    color: rgba(139,118,91,0.3);
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-  }
-  .testi-text {
-    font-size: 0.88rem; line-height: 1.85;
-    color: rgba(250,250,248,0.65); font-weight: 300;
-    font-style: italic; margin-bottom: 2rem;
-  }
-  .testi-divider {
-    width: 2rem; height: 1px;
-    background: rgba(139,118,91,0.4); margin-bottom: 1.5rem;
-  }
-  .testi-author {
-    display: flex; align-items: center; gap: 1rem;
-  }
-  .testi-avatar {
-    width: 44px; height: 44px; border-radius: 50%;
-    background: var(--olive);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--serif); font-size: 1rem;
-    color: var(--beige-light); font-weight: 300;
-    flex-shrink: 0;
-  }
-  .testi-name {
-    font-family: var(--serif); font-size: 1rem;
-    color: var(--white); font-weight: 400;
-  }
-  .testi-role {
-    font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--gold); margin-top: 0.15rem;
-  }
-  .testi-stars {
-    position: absolute; top: 2rem; right: 2rem;
-    color: var(--gold); font-size: 0.65rem; letter-spacing: 0.1em;
-  }
+  .testimonials-header .section-tag::after { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .testi-card { padding: 3rem 2.5rem; border: 1px solid rgba(139,118,91,0.1); background: rgba(139,118,91,0.02); transition: border-color 0.3s, background 0.3s; position: relative; }
+  .testi-card:hover { border-color: rgba(139,118,91,0.25); background: rgba(139,118,91,0.05); }
+  .testi-quote { font-family: var(--serif); font-size: 3.5rem; line-height: 0.5; color: rgba(139,118,91,0.3); margin-bottom: 1.5rem; font-weight: 300; }
+  .testi-text { font-size: 0.88rem; line-height: 1.85; color: rgba(250,250,248,0.65); font-weight: 300; font-style: italic; margin-bottom: 2rem; }
+  .testi-divider { width: 2rem; height: 1px; background: rgba(139,118,91,0.4); margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--olive); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--beige-light); font-weight: 300; flex-shrink: 0; }
+  .testi-name { font-family: var(--serif); font-size: 1rem; color: var(--white); font-weight: 400; }
+  .testi-role { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-top: 0.15rem; }
+  .testi-stars { position: absolute; top: 2rem; right: 2rem; color: var(--gold); font-size: 0.65rem; letter-spacing: 0.1em; }
 
   /* CTA BAND */
-  #cta-band {
-    position: relative; overflow: hidden;
-    padding: 8rem 8vw;
-    text-align: center;
-  }
-  .cta-bg {
-    position: absolute; inset: 0;
-    background: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1400&auto=format&fit=crop') center/cover;
-  }
-  .cta-overlay {
-    position: absolute; inset: 0;
-    background: rgba(8,8,8,0.78);
-  }
+  #cta-band { position: relative; overflow: hidden; padding: 8rem 8vw; text-align: center; }
+  .cta-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1400&auto=format&fit=crop') center/cover; }
+  .cta-overlay { position: absolute; inset: 0; background: rgba(8,8,8,0.78); }
   .cta-content { position: relative; z-index: 2; }
-  .cta-title {
-    font-family: var(--serif);
-    font-size: clamp(2.5rem, 5vw, 5rem);
-    font-weight: 300; color: var(--white);
-    line-height: 1.1; margin-bottom: 1rem;
-  }
+  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 1rem; }
   .cta-title em { font-style: italic; color: var(--gold); }
-  .cta-sub {
-    font-size: 0.9rem; color: rgba(250,250,248,0.55);
-    margin-bottom: 3rem; font-weight: 300;
-  }
+  .cta-sub { font-size: 0.9rem; color: rgba(250,250,248,0.55); margin-bottom: 3rem; font-weight: 300; }
 
   /* CONTACT / FOOTER */
-  #contact {
-    background: var(--noir-mid);
-    padding: 7rem 8vw 4rem;
-  }
-  .contact-grid {
-    display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 5vw;
-    padding-bottom: 5rem;
-    border-bottom: 1px solid rgba(139,118,91,0.1);
-    margin-bottom: 3rem;
-  }
-  .contact-brand .nav-logo {
-    display: block; margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-  }
-  .contact-brand p {
-    font-size: 0.85rem; line-height: 1.8;
-    color: rgba(250,250,248,0.45); font-weight: 300;
-    max-width: 300px; margin-bottom: 2rem;
-  }
-  .social-links {
-    display: flex; gap: 1rem;
-  }
-  .social-link {
-    width: 40px; height: 40px;
-    border: 1px solid rgba(139,118,91,0.2);
-    display: flex; align-items: center; justify-content: center;
-    text-decoration: none; color: rgba(250,250,248,0.5);
-    font-size: 0.7rem; letter-spacing: 0.05em;
-    transition: border-color 0.25s, color 0.25s;
-  }
+  #contact { background: var(--noir-mid); padding: 7rem 8vw 4rem; }
+  .contact-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 5vw; padding-bottom: 5rem; border-bottom: 1px solid rgba(139,118,91,0.1); margin-bottom: 3rem; }
+  .contact-brand .nav-logo { display: block; margin-bottom: 1.5rem; }
+  .contact-brand .nav-logo-wordmark { font-size: 1.7rem; }
+  .contact-brand .nav-logo svg.logo-icon { width: 38px; height: auto; }
+  .contact-brand p { font-size: 0.85rem; line-height: 1.8; color: rgba(250,250,248,0.45); font-weight: 300; max-width: 300px; margin-bottom: 2rem; }
+  .social-links { display: flex; gap: 1rem; }
+  .social-link { width: 40px; height: 40px; border: 1px solid rgba(139,118,91,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(250,250,248,0.5); font-size: 0.7rem; letter-spacing: 0.05em; transition: border-color 0.25s, color 0.25s; }
   .social-link:hover { border-color: var(--gold); color: var(--gold); }
-  .contact-col h4 {
-    font-family: var(--serif); font-size: 1.1rem;
-    font-weight: 400; color: var(--white); margin-bottom: 1.5rem;
-  }
+  .contact-col h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--white); margin-bottom: 1.5rem; }
   .contact-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
   .contact-col ul li { font-size: 0.82rem; color: rgba(250,250,248,0.45); font-weight: 300; line-height: 1.6; }
   .contact-col ul a { color: rgba(250,250,248,0.45); text-decoration: none; transition: color 0.2s; }
   .contact-col ul a:hover { color: var(--gold); }
-  .footer-bottom {
-    display: flex; justify-content: space-between; align-items: center;
-  }
-  .footer-copy {
-    font-size: 0.72rem; color: rgba(250,250,248,0.25);
-    letter-spacing: 0.05em;
-  }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.72rem; color: rgba(250,250,248,0.25); letter-spacing: 0.05em; }
   .footer-links { display: flex; gap: 2rem; }
-  .footer-links a {
-    font-size: 0.72rem; color: rgba(250,250,248,0.25);
-    text-decoration: none; letter-spacing: 0.05em;
-    transition: color 0.2s;
-  }
+  .footer-links a { font-size: 0.72rem; color: rgba(250,250,248,0.25); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
   .footer-links a:hover { color: var(--gold); }
 
+  /* Dans le footer, le logo est sur fond sombre : adapter les couleurs */
+  .contact-brand .logo-next { color: var(--white) !important; }
+  .contact-brand .logo-lea  { color: var(--gold) !important; }
+  .contact-brand .logo-chevrons { stroke: var(--gold) !important; }
+
   /* MARQUEE */
-  .marquee-wrap {
-    background: var(--gold);
-    height: var(--marquee-h);
-    padding: 0; overflow: hidden;
-    white-space: nowrap;
-    display: flex; align-items: center;
-  }
-  .marquee-track {
-    display: inline-flex; gap: 0;
-    animation: marquee 22s linear infinite;
-  }
-  .marquee-track span {
-    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
-    color: var(--noir); font-weight: 500;
-    padding: 0 2.5rem;
-  }
-  .marquee-sep {
-    color: rgba(8,8,8,0.3);
-  }
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
+  .marquee-wrap { background: var(--gold); height: var(--marquee-h); padding: 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+  .marquee-track { display: inline-flex; gap: 0; animation: marquee 22s linear infinite; }
+  .marquee-track span { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--noir); font-weight: 500; padding: 0 2.5rem; }
+  .marquee-sep { color: rgba(8,8,8,0.3); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   /* INPUT FORM STYLE */
-  .contact-form {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-    margin-top: 4rem; background: rgba(139,118,91,0.1);
-  }
-  .form-field {
-    position: relative; background: var(--noir-mid);
-    padding: 1.8rem 2rem;
-  }
+  .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 4rem; background: rgba(139,118,91,0.1); }
+  .form-field { position: relative; background: var(--noir-mid); padding: 1.8rem 2rem; }
   .form-field.full { grid-column: 1 / -1; }
-  .form-field label {
-    display: block;
-    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
-    color: rgba(139,118,91,0.7); margin-bottom: 0.6rem;
-  }
-  .form-field input, .form-field textarea, .form-field select {
-    width: 100%; background: transparent;
-    border: none; border-bottom: 1px solid rgba(250,250,248,0.12);
-    outline: none; color: var(--white);
-    font-family: var(--sans); font-size: 0.9rem; font-weight: 300;
-    padding: 0.5rem 0; transition: border-color 0.2s;
-  }
-  .form-field input:focus, .form-field textarea:focus {
-    border-color: var(--gold);
-  }
+  .form-field label { display: block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(139,118,91,0.7); margin-bottom: 0.6rem; }
+  .form-field input, .form-field textarea, .form-field select { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(250,250,248,0.12); outline: none; color: var(--white); font-family: var(--sans); font-size: 0.9rem; font-weight: 300; padding: 0.5rem 0; transition: border-color 0.2s; }
+  .form-field input:focus, .form-field textarea:focus { border-color: var(--gold); }
   .form-field textarea { resize: none; height: 100px; }
-  .form-submit {
-    grid-column: 1 / -1; background: var(--noir-mid);
-    padding: 2rem; display: flex; justify-content: flex-end;
-  }
+  .form-submit { grid-column: 1 / -1; background: var(--noir-mid); padding: 2rem; display: flex; justify-content: flex-end; }
 </style>
 </head>
 <body>
@@ -871,7 +474,19 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    NEXT<span>LEA</span>
+    <!-- Icône 3 chevrons -->
+    <svg class="logo-icon" width="44" height="22" viewBox="0 0 66 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chevron 1 (gauche) -->
+      <polyline class="logo-chevrons" points="2,2 14,15 2,28" stroke="#1a140a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Chevron 2 (milieu) -->
+      <polyline class="logo-chevrons" points="18,2 30,15 18,28" stroke="#1a140a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- Chevron 3 (droite) -->
+      <polyline class="logo-chevrons" points="34,2 46,15 34,28" stroke="#1a140a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <!-- Wordmark -->
+    <span class="nav-logo-wordmark">
+      <span class="logo-next">NEXT</span><span class="logo-lea">LEA</span>
+    </span>
     <span class="nav-tagline">Investissement Immobilier Premium</span>
   </a>
   <ul class="nav-links">
@@ -930,7 +545,7 @@
     <div class="hero-scroll">Découvrir</div>
   </div>
 
-  <!-- RIGHT: gradient panel + 3 property cards (SalesUncut style) -->
+  <!-- RIGHT: gradient panel + 3 property cards -->
   <div class="hero-right">
     <div class="prop-cards-stack">
 
@@ -951,36 +566,12 @@
           <span class="ppc-tier-tag silver">SILVER</span>
         </div>
         <div class="ppc-metrics">
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Rendement</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:62%"></div></div>
-            <span class="ppc-metric-val">5,4 %</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Occupation</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:86%"></div></div>
-            <span class="ppc-metric-val">88 %</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Cashflow</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:40%"></div></div>
-            <span class="ppc-metric-val">+290 €</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Loyer / mois</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:52%"></div></div>
-            <span class="ppc-metric-val">1 450 €</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Surface</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:34%"></div></div>
-            <span class="ppc-metric-val">38 m²</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Valorisation</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:55%"></div></div>
-            <span class="ppc-metric-val">+3,1 %</span>
-          </div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:62%"></div></div><span class="ppc-metric-val">5,4 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:86%"></div></div><span class="ppc-metric-val">88 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Cashflow</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:40%"></div></div><span class="ppc-metric-val">+290 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Loyer / mois</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:52%"></div></div><span class="ppc-metric-val">1 450 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Surface</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:34%"></div></div><span class="ppc-metric-val">38 m²</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Valorisation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:55%"></div></div><span class="ppc-metric-val">+3,1 %</span></div>
         </div>
         <div class="ppc-footer">RÉSIDENTIEL · CANNES CENTRE · 890 000 €</div>
       </div>
@@ -1002,36 +593,12 @@
           <span class="ppc-tier-tag gold">✓ GOLD</span>
         </div>
         <div class="ppc-metrics">
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Rendement</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div>
-            <span class="ppc-metric-val">6,8 %</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Occupation</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:94%"></div></div>
-            <span class="ppc-metric-val">94 %</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Cashflow</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:68%"></div></div>
-            <span class="ppc-metric-val">+640 €</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Loyer / mois</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:78%"></div></div>
-            <span class="ppc-metric-val">2 100 €</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Surface</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:72%"></div></div>
-            <span class="ppc-metric-val">94 m²</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Valorisation</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:75%"></div></div>
-            <span class="ppc-metric-val">+5,2 %</span>
-          </div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div><span class="ppc-metric-val">6,8 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:94%"></div></div><span class="ppc-metric-val">94 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Cashflow</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:68%"></div></div><span class="ppc-metric-val">+640 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Loyer / mois</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:78%"></div></div><span class="ppc-metric-val">2 100 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Surface</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:72%"></div></div><span class="ppc-metric-val">94 m²</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Valorisation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:75%"></div></div><span class="ppc-metric-val">+5,2 %</span></div>
         </div>
         <div class="ppc-footer">RÉSIDENTIEL · PROMENADE ANGLAIS · 1 240 000 €</div>
       </div>
@@ -1053,42 +620,18 @@
           <span class="ppc-tier-tag green">VÉRIFIÉ</span>
         </div>
         <div class="ppc-metrics">
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Rendement</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:90%"></div></div>
-            <span class="ppc-metric-val">7,6 %</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Occupation</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:100%"></div></div>
-            <span class="ppc-metric-val">100 %</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Cashflow</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:74%"></div></div>
-            <span class="ppc-metric-val">+510 €</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Loyer / mois</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:46%"></div></div>
-            <span class="ppc-metric-val">1 850 €</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Surface</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:42%"></div></div>
-            <span class="ppc-metric-val">52 m²</span>
-          </div>
-          <div class="ppc-metric">
-            <span class="ppc-metric-label">Valorisation</span>
-            <div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div>
-            <span class="ppc-metric-val">+6,4 %</span>
-          </div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:90%"></div></div><span class="ppc-metric-val">7,6 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:100%"></div></div><span class="ppc-metric-val">100 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Cashflow</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:74%"></div></div><span class="ppc-metric-val">+510 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Loyer / mois</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:46%"></div></div><span class="ppc-metric-val">1 850 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Surface</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:42%"></div></div><span class="ppc-metric-val">52 m²</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Valorisation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div><span class="ppc-metric-val">+6,4 %</span></div>
         </div>
         <div class="ppc-footer">COMMERCE · VIEILLE VILLE · 420 000 €</div>
       </div>
 
-    </div><!-- /prop-cards-stack -->
-  </div><!-- /hero-right -->
+    </div>
+  </div>
 
 </section>
 
@@ -1172,10 +715,7 @@
         <div class="property-name">Palais des Saveurs</div>
         <div class="property-loc">534 Avenue du Soleil, Cannes</div>
         <div class="property-price">1 850 000 €</div>
-        <a href="#" class="property-link">
-          Découvrir
-          <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
-        </a>
+        <a href="#" class="property-link">Découvrir <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a>
       </div>
     </div>
     <div class="property-card fade-up delay-1">
@@ -1186,10 +726,7 @@
         <div class="property-name">Levante Plaza</div>
         <div class="property-loc">Promenade des Anglais, Nice</div>
         <div class="property-price">2 400 000 €</div>
-        <a href="#" class="property-link">
-          Découvrir
-          <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
-        </a>
+        <a href="#" class="property-link">Découvrir <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a>
       </div>
     </div>
     <div class="property-card fade-up delay-2">
@@ -1200,10 +737,7 @@
         <div class="property-name">Villa Pinède</div>
         <div class="property-loc">Cap d'Antibes</div>
         <div class="property-price">3 200 000 €</div>
-        <a href="#" class="property-link">
-          Découvrir
-          <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg>
-        </a>
+        <a href="#" class="property-link">Découvrir <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a>
       </div>
     </div>
   </div>
@@ -1216,12 +750,8 @@
   </div>
   <div class="mgmt-content">
     <p class="section-tag fade-up">Nos Services</p>
-    <h2 class="section-title fade-up">
-      Gestion<br><em>Immobilière</em>
-    </h2>
-    <p class="mgmt-desc fade-up">
-      Confiez-nous votre bien, nous prenons en charge l'intégralité de sa gestion — du locataire à la comptabilité, avec une transparence totale.
-    </p>
+    <h2 class="section-title fade-up">Gestion<br><em>Immobilière</em></h2>
+    <p class="mgmt-desc fade-up">Confiez-nous votre bien, nous prenons en charge l'intégralité de sa gestion — du locataire à la comptabilité, avec une transparence totale.</p>
     <ul class="mgmt-features fade-up">
       <li>Sélection et vérification des locataires</li>
       <li>Gestion des travaux et maintenance</li>
@@ -1262,42 +792,24 @@
   <div class="testi-grid">
     <div class="testi-card fade-up">
       <div class="testi-stars">★★★★★</div>
-      <div class="testi-quote">"
+      <div class="testi-quote">"</div>
       <p class="testi-text">NEXTLEA a transformé ma vision de l'investissement. Leur analyse du marché est d'une précision remarquable — j'ai obtenu un rendement de 6,8% dès la première année.</p>
       <div class="testi-divider"></div>
-      <div class="testi-author">
-        <div class="testi-avatar">GS</div>
-        <div>
-          <div class="testi-name">Gabriel Strasser</div>
-          <div class="testi-role">Entrepreneur, Monaco</div>
-        </div>
-      </div>
+      <div class="testi-author"><div class="testi-avatar">GS</div><div><div class="testi-name">Gabriel Strasser</div><div class="testi-role">Entrepreneur, Monaco</div></div></div>
     </div>
     <div class="testi-card fade-up delay-1">
       <div class="testi-stars">★★★★★</div>
-      <div class="testi-quote">"
+      <div class="testi-quote">"</div>
       <p class="testi-text">Un accompagnement exceptionnel, de la recherche du bien à la mise en location. Ils ont géré tous les imprévus avec un calme et une réactivité impressionnants.</p>
       <div class="testi-divider"></div>
-      <div class="testi-author">
-        <div class="testi-avatar">MJ</div>
-        <div>
-          <div class="testi-name">Marie-Laure Jouet</div>
-          <div class="testi-role">Médecin, Nice</div>
-        </div>
-      </div>
+      <div class="testi-author"><div class="testi-avatar">MJ</div><div><div class="testi-name">Marie-Laure Jouet</div><div class="testi-role">Médecin, Nice</div></div></div>
     </div>
     <div class="testi-card fade-up delay-2">
       <div class="testi-stars">★★★★★</div>
-      <div class="testi-quote">"
+      <div class="testi-quote">"</div>
       <p class="testi-text">En tant que non-résident, je cherchais un partenaire de confiance sur la Côte d'Azur. NEXTLEA dépasse toutes mes attentes — transparence, performance, réactivité.</p>
       <div class="testi-divider"></div>
-      <div class="testi-author">
-        <div class="testi-avatar">TL</div>
-        <div>
-          <div class="testi-name">Thomas Leroux</div>
-          <div class="testi-role">Investisseur, Genève</div>
-        </div>
-      </div>
+      <div class="testi-author"><div class="testi-avatar">TL</div><div><div class="testi-name">Thomas Leroux</div><div class="testi-role">Investisseur, Genève</div></div></div>
     </div>
   </div>
 </section>
@@ -1307,9 +819,7 @@
   <div class="cta-bg"></div>
   <div class="cta-overlay"></div>
   <div class="cta-content">
-    <h2 class="cta-title fade-up">
-      Prêt à investir<br><em>intelligemment ?</em>
-    </h2>
+    <h2 class="cta-title fade-up">Prêt à investir<br><em>intelligemment ?</em></h2>
     <p class="cta-sub fade-up">Échange confidentiel, sans engagement. Nous analysons votre situation et votre potentiel.</p>
     <a href="#contact" class="btn-primary fade-up" style="margin: 0 auto; display: inline-flex;">
       Démarrer maintenant
@@ -1322,7 +832,17 @@
 <footer id="contact">
   <div class="contact-grid">
     <div class="contact-brand fade-up">
-      <a href="#" class="nav-logo">NEXT<span>LEA</span></a>
+      <!-- Logo footer : fond sombre → chevrons et "LEA" en or, "NEXT" en blanc -->
+      <a href="#" class="nav-logo">
+        <svg class="logo-icon" width="38" height="19" viewBox="0 0 66 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <polyline class="logo-chevrons" points="2,2 14,15 2,28" stroke="#8B765B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <polyline class="logo-chevrons" points="18,2 30,15 18,28" stroke="#8B765B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <polyline class="logo-chevrons" points="34,2 46,15 34,28" stroke="#8B765B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="nav-logo-wordmark">
+          <span class="logo-next">NEXT</span><span class="logo-lea">LEA</span>
+        </span>
+      </a>
       <p>Cabinet d'investissement immobilier premium, opérant sur la Côte d'Azur et les principales métropoles françaises.</p>
       <div class="social-links">
         <a href="#" class="social-link">Li</a>
@@ -1362,11 +882,9 @@
 </footer>
 
 <script>
-  // Custom cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0;
-  let rx = 0, ry = 0;
+  let mx = 0, my = 0, rx = 0, ry = 0;
 
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
@@ -1388,22 +906,16 @@
     el.addEventListener('mouseleave', () => ring.classList.remove('expanded'));
   });
 
-  // Sticky nav
   const nav = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Fade-in on scroll
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); }
-    });
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
-
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  // Gallery hover effect for inner items
   document.querySelectorAll('#gallery img').forEach(img => {
     img.parentElement.addEventListener('mouseenter', () => img.style.transform = 'scale(1.06)');
     img.parentElement.addEventListener('mouseleave', () => img.style.transform = '');
