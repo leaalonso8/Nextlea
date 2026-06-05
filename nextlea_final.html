@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXTLEA — Votre prochain investissement. Trouvé.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --nav-h: 72px; --marquee-h: 44px;
+    --noir: #080808; --noir-soft: #111111; --noir-mid: #1a1a1a;
+    --gold: #8B765B; --gold-light: #A08B70;
+    --olive: #6B7A3A; --olive-light: #8A9A52;
+    --beige: #D4C5A9; --beige-light: #EAE0CE; --cream: #F5F0E8; --white: #FAFAF8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--sans); background: var(--noir); color: var(--white); overflow-x: hidden; cursor: none; }
+
+  .cursor { position: fixed; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transition: transform 0.15s ease, opacity 0.3s; transform: translate(-50%, -50%); }
+  .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(139,118,91,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), width 0.3s, height 0.3s, opacity 0.3s; transform: translate(-50%, -50%); }
+  .cursor-ring.expanded { width: 60px; height: 60px; border-color: var(--gold); }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 4vw; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; background: #EDE7D9; border-bottom: 1px solid rgba(0,0,0,0.07); transition: background 0.4s, box-shadow 0.4s; }
+  nav.scrolled { background: #E8E1D4; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+
+  .nav-logo { text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 0.18rem; line-height: 1; }
+  .nav-logo svg.logo-icon { display: block; }
+  .nav-logo-wordmark { display: flex; align-items: baseline; font-family: var(--serif); font-size: 1.35rem; font-weight: 300; letter-spacing: 0.22em; line-height: 1; }
+  .nav-logo-wordmark .logo-next { color: #1a140a; }
+  .nav-logo-wordmark .logo-lea  { color: #8B765B; }
+  .nav-tagline { font-family: var(--sans); font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(26,20,10,0.42); font-weight: 400; display: flex; align-items: center; gap: 0.5rem; }
+  .nav-tagline::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; font-size: 0.72rem; letter-spacing: 0.14em; font-weight: 400; }
+  .nav-links a { color: rgba(26,20,10,0.55); text-decoration: none; text-transform: uppercase; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: #1a140a; transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .nav-links a:hover { color: #1a140a; }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  .nav-cta { font-family: var(--sans); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: #EDE7D9; background: #1a140a; padding: 0.7rem 1.7rem; text-decoration: none; transition: background 0.25s; }
+  .nav-cta:hover { background: #3a2e18; }
+
+  /* ── CHANGE 1 : hero 60/40 ── */
+  #hero { display: grid; grid-template-columns: 3fr 2fr; overflow: hidden; margin-top: var(--nav-h); height: calc(100vh - var(--nav-h) - var(--marquee-h)); min-height: 600px; }
+  .hero-left { position: relative; display: flex; align-items: center; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&auto=format&fit=crop') center/cover no-repeat; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(105deg, rgba(8,8,8,0.88) 35%, rgba(8,8,8,0.5) 80%, rgba(8,8,8,0.82) 100%); }
+  /* Fondu réduit proportionnellement à la partie gauche élargie */
+  .hero-blend { position: absolute; top: 0; right: 0; width: 38%; height: 100%; background: linear-gradient(to right, transparent 0%, rgba(8,8,8,0.55) 45%, rgba(8,8,8,0.88) 75%, #080808 100%); z-index: 1; pointer-events: none; }
+  .hero-line { position: absolute; top: 0; right: 0; width: 1px; height: 100%; background: linear-gradient(to bottom, transparent, rgba(139,118,91,0.25) 30%, rgba(139,118,91,0.25) 70%, transparent); z-index: 2; }
+  /* ── CHANGE 2 : contenu élargi, titre 3 lignes ── */
+  .hero-content { position: relative; z-index: 2; padding: 0 5vw 0 8vw; max-width: 780px; width: 100%; }
+  .hero-right { position: relative; background: linear-gradient(to right, #080808 0%, #1a1713 12%, #3a3228 28%, #6e6356 45%, #a09489 60%, #c2bcb4 75%, #d0cbc4 88%, #d4cfc8 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+  /* ── CARDS ── */
+  .prop-cards-stack { position: relative; width: 520px; height: 500px; flex-shrink: 0; }
+  .ppc { position: absolute; width: 210px; background: #F4EDE0; border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; overflow: hidden; font-family: var(--sans); box-shadow: 0 12px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1); transform-origin: bottom center; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s; }
+  .ppc:nth-child(1) { left: 20px;  top: 28px; transform: rotate(-9deg); z-index: 1; }
+  .ppc:nth-child(2) { left: 155px; top: 65px; transform: rotate(0deg);  z-index: 3; }
+  .ppc:nth-child(3) { left: 290px; top: 28px; transform: rotate(9deg);  z-index: 2; }
+  .ppc:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .ppc:nth-child(1):hover { transform: rotate(-9deg) translateY(-10px); }
+  .ppc:nth-child(2):hover { transform: rotate(0deg)  translateY(-10px); }
+  .ppc:nth-child(3):hover { transform: rotate(9deg)  translateY(-10px); }
+
+  /* ── CHANGE 3 : marge photo 1px ── */
+  .ppc-photo { position: relative; height: 148px; overflow: hidden; margin: 0 1px; border-radius: 0; }
+  .ppc-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+  .ppc:hover .ppc-photo img { transform: scale(1.05); }
+
+  /* ── CHANGE 4 : badges en HAUT ── */
+  .ppc-loc-tag  { position: absolute; top: 0.55rem; left: 0.55rem;  background: #2a1f0f; color: #f4ede0; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; padding: 0.25rem 0.65rem; border-radius: 4px; text-transform: uppercase; }
+  .ppc-tier-tag { position: absolute; top: 0.55rem; right: 0.55rem; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.25rem 0.65rem; border-radius: 4px; text-transform: uppercase; }
+  .ppc-tier-tag.gold   { background: var(--gold);  color: #1a140a; }
+  .ppc-tier-tag.silver { background: #9EA5AE;       color: #1a140a; }
+  .ppc-tier-tag.green  { background: var(--olive);  color: #fff; }
+
+  .ppc-title-banner { background: #c8b49a; padding: 0.42rem 0.85rem; display: flex; justify-content: space-between; align-items: baseline; gap: 0.5rem; }
+  .ppc-title-banner .ppc-name { font-size: 0.72rem; font-weight: 700; color: #2e2010; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; flex: 1; }
+  .ppc-title-banner .ppc-score { display: flex; align-items: baseline; gap: 0.05rem; flex-shrink: 0; }
+  .ppc-title-banner .ppc-score-num { font-size: 1.1rem; font-weight: 800; color: #2e2010; line-height: 1; }
+  .ppc-title-banner .ppc-score-max { font-size: 0.55rem; font-weight: 400; color: rgba(46,32,16,0.55); }
+  .ppc-metrics { padding: 0.7rem 0.85rem 0; display: flex; flex-direction: column; gap: 0.3rem; }
+  .ppc-metric { display: flex; align-items: center; gap: 0.5rem; }
+  .ppc-metric-label { font-size: 0.58rem; color: rgba(26,20,10,0.45); text-transform: uppercase; letter-spacing: 0.06em; width: 84px; flex-shrink: 0; }
+  .ppc-metric-bar { flex: 1; height: 3.5px; border-radius: 2px; background: rgba(26,20,10,0.1); overflow: hidden; }
+  .ppc-metric-fill { height: 100%; border-radius: 2px; background: #3a2e18; }
+  .ppc-metric-val { font-size: 0.65rem; font-weight: 600; color: #1a140a; width: 34px; text-align: right; flex-shrink: 0; }
+  .ppc-footer { padding: 0.6rem 0.85rem 0.85rem; font-size: 0.6rem; color: rgba(26,20,10,0.4); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .hero-eyebrow { font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 1.4rem; display: flex; align-items: center; gap: 0.8rem; }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); flex-shrink: 0; }
+  /* ── CHANGE 2 : H1 plus grand, "Trouvé." sur sa propre ligne via em{display:block} ── */
+  .hero-h1 { font-family: var(--serif); font-size: clamp(3.5rem, 5.8vw, 6.5rem); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 0.25rem; }
+  .hero-h1 em { font-style: italic; color: var(--gold); display: block; }
+  .hero-sub { margin-top: 1.8rem; margin-bottom: 2.8rem; font-size: 0.9rem; line-height: 1.8; color: rgba(250,250,248,0.65); max-width: 480px; font-weight: 300; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--noir); background: var(--gold); padding: 1rem 2.4rem; text-decoration: none; transition: background 0.25s, gap 0.25s; }
+  .btn-primary:hover { background: var(--gold-light); gap: 1.25rem; }
+  .btn-primary svg { width: 14px; }
+  .btn-outline { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); border: 1px solid rgba(250,250,248,0.35); padding: 1rem 2.4rem; text-decoration: none; transition: border-color 0.25s, gap 0.25s; }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); gap: 1.25rem; }
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: nowrap; align-items: center; }
+  .hero-bottom { margin-top: 2.2rem; display: flex; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+  .hero-stat-inline { text-align: left; }
+  .hero-stat-inline .hero-stat-num { font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .hero-stat-inline .hero-stat-label { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(250,250,248,0.38); margin-top: 0.2rem; }
+  .hero-divider-v { width: 1px; height: 36px; background: rgba(139,118,91,0.2); flex-shrink: 0; align-self: center; }
+  .hero-cert-label { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,250,248,0.3); align-self: center; display: flex; align-items: center; gap: 0.5rem; }
+  .hero-cert-label::before { content: ''; display: block; width: 14px; height: 1px; background: rgba(139,118,91,0.4); }
+  .hero-scroll { position: absolute; bottom: 2.5rem; left: 8vw; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(250,250,248,0.4); z-index: 2; }
+  .hero-scroll::after { content: ''; display: block; width: 1px; height: 48px; background: linear-gradient(to bottom, rgba(139,118,91,0.6), transparent); animation: scrollPulse 2s infinite; }
+  @keyframes scrollPulse { 0%,100% { opacity: 1; transform: scaleY(1); } 50% { opacity: 0.4; transform: scaleY(0.6); } }
+  .hero-stat-num { font-family: var(--serif); font-size: 2.2rem; font-weight: 300; color: var(--gold); line-height: 1; }
+  .hero-stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(250,250,248,0.4); margin-top: 0.3rem; }
+
+  section { position: relative; }
+  .section-tag { font-size: 0.68rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+  .section-tag::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+  .section-title { font-family: var(--serif); font-size: clamp(2.2rem, 3.5vw, 3.6rem); font-weight: 300; line-height: 1.15; color: var(--white); }
+  .section-title em { font-style: italic; color: var(--beige); }
+
+  .fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+  .fade-up:nth-child(2) { transition-delay: 0.1s; } .fade-up:nth-child(3) { transition-delay: 0.2s; } .fade-up:nth-child(4) { transition-delay: 0.3s; }
+  .delay-1 { transition-delay: 0.1s !important; } .delay-2 { transition-delay: 0.2s !important; } .delay-3 { transition-delay: 0.3s !important; } .delay-4 { transition-delay: 0.4s !important; } .delay-5 { transition-delay: 0.5s !important; }
+
+  #about { padding: 9rem 8vw; display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: center; background: var(--noir-soft); }
+  .about-img-wrap { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+  .about-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
+  .about-img-wrap:hover img { transform: scale(1.04); }
+  .about-img-accent { position: absolute; bottom: -1.5rem; right: -1.5rem; width: 48%; aspect-ratio: 1; border: 2px solid rgba(139,118,91,0.25); pointer-events: none; }
+  .about-img-badge { position: absolute; top: 2rem; left: -2rem; background: var(--gold); color: var(--noir); padding: 1.5rem; text-align: center; width: 100px; }
+  .about-img-badge strong { display: block; font-family: var(--serif); font-size: 2rem; font-weight: 300; line-height: 1; }
+  .about-img-badge span { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.4; }
+  .about-text { padding-left: 2vw; }
+  .about-desc { margin-top: 1.8rem; font-size: 0.92rem; line-height: 1.9; color: rgba(250,250,248,0.6); font-weight: 300; }
+  .about-pillars { margin-top: 3rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .pillar { padding: 1.5rem; border: 1px solid rgba(139,118,91,0.12); transition: border-color 0.3s, background 0.3s; }
+  .pillar:hover { border-color: rgba(139,118,91,0.35); background: rgba(139,118,91,0.04); }
+  .pillar-icon { width: 36px; height: 36px; margin-bottom: 1rem; color: var(--gold); }
+  .pillar-title { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--white); margin-bottom: 0.5rem; }
+  .pillar-text { font-size: 0.78rem; line-height: 1.7; color: rgba(250,250,248,0.45); }
+
+  #properties { padding: 9rem 8vw; background: var(--noir); }
+  .properties-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 4rem; }
+  .properties-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; }
+  .property-card { position: relative; overflow: hidden; aspect-ratio: 3/4; cursor: none; }
+  .property-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .property-card:hover img { transform: scale(1.06); }
+  .property-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,8,8,0.92) 0%, rgba(8,8,8,0.2) 50%, transparent 100%); transition: background 0.4s; }
+  .property-card:hover .property-overlay { background: linear-gradient(to top, rgba(8,8,8,0.96) 0%, rgba(8,8,8,0.4) 60%, rgba(8,8,8,0.1) 100%); }
+  .property-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem 1.8rem; transform: translateY(2.5rem); transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .property-card:hover .property-info { transform: translateY(0); }
+  .property-type { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+  .property-name { font-family: var(--serif); font-size: 1.5rem; font-weight: 300; color: var(--white); line-height: 1.2; margin-bottom: 0.4rem; }
+  .property-loc { font-size: 0.78rem; color: rgba(250,250,248,0.5); margin-bottom: 1rem; }
+  .property-price { font-family: var(--serif); font-size: 1.2rem; color: var(--gold); margin-bottom: 1.2rem; }
+  .property-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); text-decoration: none; border-bottom: 1px solid rgba(250,250,248,0.2); padding-bottom: 0.25rem; opacity: 0; transition: opacity 0.3s 0.1s; }
+  .property-card:hover .property-link { opacity: 1; }
+  .property-link:hover { color: var(--gold); border-color: var(--gold); }
+
+  #management { display: grid; grid-template-columns: 1fr 1fr; min-height: 680px; }
+  .mgmt-img { position: relative; overflow: hidden; }
+  .mgmt-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
+  .mgmt-img:hover img { transform: scale(1.04); }
+  .mgmt-content { background: var(--olive); padding: 7rem 5vw; display: flex; flex-direction: column; justify-content: center; }
+  .mgmt-content .section-tag { color: rgba(250,250,248,0.7); } .mgmt-content .section-tag::before { background: rgba(250,250,248,0.5); }
+  .mgmt-content .section-title { color: var(--white); } .mgmt-content .section-title em { color: var(--beige-light); }
+  .mgmt-desc { margin-top: 1.5rem; margin-bottom: 2.5rem; font-size: 0.88rem; line-height: 1.9; color: rgba(250,250,248,0.7); font-weight: 300; max-width: 380px; }
+  .mgmt-features { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 3rem; }
+  .mgmt-features li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.82rem; color: rgba(250,250,248,0.8); }
+  .mgmt-features li::before { content: ''; display: block; width: 5px; height: 5px; background: var(--beige-light); border-radius: 50%; margin-top: 0.45rem; flex-shrink: 0; }
+  .btn-cream { display: inline-flex; align-items: center; gap: 0.75rem; font-family: var(--sans); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--noir); background: var(--beige-light); padding: 1rem 2.2rem; text-decoration: none; align-self: flex-start; transition: background 0.25s; }
+  .btn-cream:hover { background: var(--cream); }
+
+  #gallery { display: grid; grid-template-columns: 2fr 1fr 1fr; height: 60vw; max-height: 700px; gap: 1.5px; overflow: hidden; }
+  .gallery-item { position: relative; overflow: hidden; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item .gallery-caption { position: absolute; bottom: 1.5rem; left: 1.5rem; font-family: var(--serif); font-size: 1rem; font-style: italic; color: rgba(250,250,248,0.7); opacity: 0; transition: opacity 0.3s; }
+  .gallery-item:hover .gallery-caption { opacity: 1; }
+
+  #testimonials { padding: 9rem 8vw; background: var(--noir-soft); }
+  .testimonials-header { text-align: center; margin-bottom: 5rem; }
+  .testimonials-header .section-tag { justify-content: center; } .testimonials-header .section-tag::before { display: none; }
+  .testimonials-header .section-tag::after { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+  .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .testi-card { padding: 3rem 2.5rem; border: 1px solid rgba(139,118,91,0.1); background: rgba(139,118,91,0.02); transition: border-color 0.3s, background 0.3s; position: relative; }
+  .testi-card:hover { border-color: rgba(139,118,91,0.25); background: rgba(139,118,91,0.05); }
+  .testi-quote { font-family: var(--serif); font-size: 3.5rem; line-height: 0.5; color: rgba(139,118,91,0.3); margin-bottom: 1.5rem; font-weight: 300; }
+  .testi-text { font-size: 0.88rem; line-height: 1.85; color: rgba(250,250,248,0.65); font-weight: 300; font-style: italic; margin-bottom: 2rem; }
+  .testi-divider { width: 2rem; height: 1px; background: rgba(139,118,91,0.4); margin-bottom: 1.5rem; }
+  .testi-author { display: flex; align-items: center; gap: 1rem; }
+  .testi-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--olive); display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 1rem; color: var(--beige-light); font-weight: 300; flex-shrink: 0; }
+  .testi-name { font-family: var(--serif); font-size: 1rem; color: var(--white); font-weight: 400; }
+  .testi-role { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-top: 0.15rem; }
+  .testi-stars { position: absolute; top: 2rem; right: 2rem; color: var(--gold); font-size: 0.65rem; letter-spacing: 0.1em; }
+
+  #cta-band { position: relative; overflow: hidden; padding: 8rem 8vw; text-align: center; }
+  .cta-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1400&auto=format&fit=crop') center/cover; }
+  .cta-overlay { position: absolute; inset: 0; background: rgba(8,8,8,0.78); }
+  .cta-content { position: relative; z-index: 2; }
+  .cta-title { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 5rem); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 1rem; }
+  .cta-title em { font-style: italic; color: var(--gold); }
+  .cta-sub { font-size: 0.9rem; color: rgba(250,250,248,0.55); margin-bottom: 3rem; font-weight: 300; }
+
+  #contact { background: var(--noir-mid); padding: 7rem 8vw 4rem; }
+  .contact-grid { display: grid; grid-template-columns: 1.8fr 1fr 1fr; gap: 5vw; padding-bottom: 5rem; border-bottom: 1px solid rgba(139,118,91,0.1); margin-bottom: 3rem; }
+  .contact-brand .nav-logo { display: block; margin-bottom: 1.5rem; }
+  .contact-brand .nav-logo-wordmark { font-size: 1.6rem; }
+  .contact-brand .logo-next { color: var(--white) !important; }
+  .contact-brand .logo-lea  { color: #8B765B !important; }
+  .contact-brand p { font-size: 0.85rem; line-height: 1.8; color: rgba(250,250,248,0.45); font-weight: 300; max-width: 300px; margin-bottom: 2rem; }
+  .social-links { display: flex; gap: 1rem; }
+  .social-link { width: 40px; height: 40px; border: 1px solid rgba(139,118,91,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(250,250,248,0.5); font-size: 0.7rem; letter-spacing: 0.05em; transition: border-color 0.25s, color 0.25s; }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); }
+  .contact-col h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--white); margin-bottom: 1.5rem; }
+  .contact-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-col ul li { font-size: 0.82rem; color: rgba(250,250,248,0.45); font-weight: 300; line-height: 1.6; }
+  .contact-col ul a { color: rgba(250,250,248,0.45); text-decoration: none; transition: color 0.2s; }
+  .contact-col ul a:hover { color: var(--gold); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 0.72rem; color: rgba(250,250,248,0.25); letter-spacing: 0.05em; }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a { font-size: 0.72rem; color: rgba(250,250,248,0.25); text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  .marquee-wrap { background: var(--gold); height: var(--marquee-h); padding: 0; overflow: hidden; white-space: nowrap; display: flex; align-items: center; }
+  .marquee-track { display: inline-flex; gap: 0; animation: marquee 22s linear infinite; }
+  .marquee-track span { font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--noir); font-weight: 500; padding: 0 2.5rem; }
+  .marquee-sep { color: rgba(8,8,8,0.3); }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin-top: 4rem; background: rgba(139,118,91,0.1); }
+  .form-field { position: relative; background: var(--noir-mid); padding: 1.8rem 2rem; }
+  .form-field.full { grid-column: 1 / -1; }
+  .form-field label { display: block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(139,118,91,0.7); margin-bottom: 0.6rem; }
+  .form-field input, .form-field textarea, .form-field select { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(250,250,248,0.12); outline: none; color: var(--white); font-family: var(--sans); font-size: 0.9rem; font-weight: 300; padding: 0.5rem 0; transition: border-color 0.2s; }
+  .form-field input:focus, .form-field textarea:focus { border-color: var(--gold); }
+  .form-field textarea { resize: none; height: 100px; }
+  .form-submit { grid-column: 1 / -1; background: var(--noir-mid); padding: 2rem; display: flex; justify-content: flex-end; }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <svg class="logo-icon" width="65" height="26" viewBox="0 0 114 44" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,8 31.2,26 0,44"       fill="#8B765B"/>
+      <polygon points="36.2,8 67.4,26 36.2,44"  fill="#8B765B"/>
+      <polygon points="72.4,8 103.6,26 72.4,44" fill="#8B765B"/>
+      <polygon points="5,0 36.2,18 5,36"        fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
+      <polygon points="41.2,0 72.4,18 41.2,36"  fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
+      <polygon points="77.4,0 108.6,18 77.4,36" fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
+    </svg>
+    <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
+
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">À Propos</a></li>
+    <li><a href="#properties">Propriétés</a></li>
+    <li><a href="#management">Services</a></li>
+    <li><a href="#testimonials">Témoignages</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Découvrir</a>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-blend"></div>
+    <div class="hero-line"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow fade-up">Investissement Immobilier Locatif</p>
+      <!-- CHANGE 2 : titre sur 3 lignes distinctes -->
+      <h1 class="hero-h1 fade-up">
+        Votre prochain<br>
+        investissement.<em>Trouvé.</em>
+      </h1>
+      <p class="hero-sub fade-up">Analyse de marché sur-mesure — rendement locatif, fiscalité, potentiel de valorisation. Nous constituons votre portefeuille immobilier avec précision.</p>
+      <div class="hero-btns fade-up">
+        <a href="#properties" class="btn-primary">Explorer les biens <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a>
+        <a href="#about" class="btn-outline">Notre approche</a>
+      </div>
+      <div class="hero-bottom fade-up delay-1">
+        <div class="hero-stat-inline"><div class="hero-stat-num">12+</div><div class="hero-stat-label">Années d'expérience</div></div>
+        <div class="hero-divider-v"></div>
+        <div class="hero-stat-inline"><div class="hero-stat-num">380</div><div class="hero-stat-label">Biens placés</div></div>
+        <div class="hero-divider-v"></div>
+        <div class="hero-stat-inline"><div class="hero-stat-num">97%</div><div class="hero-stat-label">Clients satisfaits</div></div>
+        <div class="hero-divider-v"></div>
+        <span class="hero-cert-label">Biens certifiés<br>Performance vérifiée</span>
+      </div>
+    </div>
+    <div class="hero-scroll">Découvrir</div>
+  </div>
+
+  <div class="hero-right">
+    <div class="prop-cards-stack">
+
+      <!-- Carte 1 — gauche -->
+      <div class="ppc">
+        <div class="ppc-photo">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&auto=format&fit=crop&q=80" alt="Studio Cannes">
+          <!-- CHANGE 4 : badges en haut -->
+          <span class="ppc-loc-tag">Cannes</span>
+          <span class="ppc-tier-tag silver">SILVER</span>
+        </div>
+        <div class="ppc-title-banner">
+          <div class="ppc-name">Studio Haussmannien</div>
+          <div class="ppc-score"><span class="ppc-score-num">76</span><span class="ppc-score-max">/100</span></div>
+        </div>
+        <div class="ppc-metrics">
+          <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:62%"></div></div><span class="ppc-metric-val">5,4 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:86%"></div></div><span class="ppc-metric-val">88 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Cashflow</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:40%"></div></div><span class="ppc-metric-val">+290 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Loyer / mois</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:52%"></div></div><span class="ppc-metric-val">1 450 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Surface</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:34%"></div></div><span class="ppc-metric-val">38 m²</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Valorisation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:55%"></div></div><span class="ppc-metric-val">+3,1 %</span></div>
+        </div>
+        <div class="ppc-footer">RÉSIDENTIEL · CANNES CENTRE · 890 000 €</div>
+      </div>
+
+      <!-- Carte 2 — centre, avant-plan -->
+      <div class="ppc">
+        <div class="ppc-photo">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&auto=format&fit=crop&q=80" alt="Appartement Nice">
+          <span class="ppc-loc-tag">Nice</span>
+          <span class="ppc-tier-tag gold">✓ GOLD</span>
+        </div>
+        <div class="ppc-title-banner">
+          <div class="ppc-name">Belle Époque</div>
+          <div class="ppc-score"><span class="ppc-score-num">91</span><span class="ppc-score-max">/100</span></div>
+        </div>
+        <div class="ppc-metrics">
+          <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div><span class="ppc-metric-val">6,8 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:94%"></div></div><span class="ppc-metric-val">94 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Cashflow</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:68%"></div></div><span class="ppc-metric-val">+640 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Loyer / mois</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:78%"></div></div><span class="ppc-metric-val">2 100 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Surface</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:72%"></div></div><span class="ppc-metric-val">94 m²</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Valorisation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:75%"></div></div><span class="ppc-metric-val">+5,2 %</span></div>
+        </div>
+        <div class="ppc-footer">RÉSIDENTIEL · PROMENADE ANGLAIS · 1 240 000 €</div>
+      </div>
+
+      <!-- Carte 3 — droite -->
+      <div class="ppc">
+        <div class="ppc-photo">
+          <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&auto=format&fit=crop&q=80" alt="Commerce Antibes">
+          <span class="ppc-loc-tag">Antibes</span>
+          <span class="ppc-tier-tag green">VÉRIFIÉ</span>
+        </div>
+        <div class="ppc-title-banner">
+          <div class="ppc-name">Commerce Vieille Ville</div>
+          <div class="ppc-score"><span class="ppc-score-num">84</span><span class="ppc-score-max">/100</span></div>
+        </div>
+        <div class="ppc-metrics">
+          <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:90%"></div></div><span class="ppc-metric-val">7,6 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:100%"></div></div><span class="ppc-metric-val">100 %</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Cashflow</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:74%"></div></div><span class="ppc-metric-val">+510 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Loyer / mois</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:46%"></div></div><span class="ppc-metric-val">1 850 €</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Surface</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:42%"></div></div><span class="ppc-metric-val">52 m²</span></div>
+          <div class="ppc-metric"><span class="ppc-metric-label">Valorisation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div><span class="ppc-metric-val">+6,4 %</span></div>
+        </div>
+        <div class="ppc-footer">COMMERCE · VIEILLE VILLE · 420 000 €</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Investissement Immobilier</span><span class="marquee-sep">✦</span><span>Analyse de Rendement</span><span class="marquee-sep">✦</span><span>Gestion Locative</span><span class="marquee-sep">✦</span><span>Patrimoine &amp; Fiscalité</span><span class="marquee-sep">✦</span><span>Expertise Côte d'Azur</span><span class="marquee-sep">✦</span><span>Investissement Immobilier</span><span class="marquee-sep">✦</span><span>Analyse de Rendement</span><span class="marquee-sep">✦</span><span>Gestion Locative</span><span class="marquee-sep">✦</span><span>Patrimoine &amp; Fiscalité</span><span class="marquee-sep">✦</span><span>Expertise Côte d'Azur</span><span class="marquee-sep">✦</span>
+  </div>
+</div>
+
+<section id="about">
+  <div class="about-img-wrap fade-up">
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=900&auto=format&fit=crop" alt="Intérieur de luxe" loading="lazy">
+    <div class="about-img-accent"></div>
+    <div class="about-img-badge"><strong>12</strong><span>Ans d'expertise</span></div>
+  </div>
+  <div class="about-text">
+    <p class="section-tag fade-up">Qui Sommes-Nous</p>
+    <h2 class="section-title fade-up">L'intelligence au service<br>de votre <em>patrimoine</em></h2>
+    <p class="about-desc fade-up">NEXTLEA est un cabinet d'investissement immobilier fondé sur une conviction simple : chaque décision patrimoniale mérite une analyse rigoureuse. Nous combinons data, expertise locale et vision long terme pour vous placer dans les meilleures positions du marché.</p>
+    <div class="about-pillars">
+      <div class="pillar fade-up"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><div class="pillar-title">Vision Globale</div><div class="pillar-text">Marchés nationaux et internationaux, tendances macroéconomiques et micro-locales.</div></div>
+      <div class="pillar fade-up delay-1"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><div class="pillar-title">Excellence</div><div class="pillar-text">Sélection rigoureuse — nous ne présentons que les biens dont nous sommes convaincus.</div></div>
+      <div class="pillar fade-up delay-2"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 14 19.79 19.79 0 0 1 1 5.38 2 2 0 0 1 2.96 3h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg><div class="pillar-title">Accompagnement</div><div class="pillar-text">Un interlocuteur dédié, de la recherche à la mise en location ou revente.</div></div>
+      <div class="pillar fade-up delay-3"><svg class="pillar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><div class="pillar-title">Performance</div><div class="pillar-text">Rendement locatif optimisé, structure fiscale adaptée, valorisation sur le long terme.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="properties">
+  <div class="properties-header">
+    <div><p class="section-tag fade-up">Notre Portefeuille</p><h2 class="section-title fade-up">Propriétés <em>sélectionnées</em></h2></div>
+    <a href="#" class="btn-outline fade-up">Voir tout <svg width="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a>
+  </div>
+  <div class="properties-grid">
+    <div class="property-card fade-up"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop" alt="Bureau Cannes" loading="lazy"><div class="property-overlay"></div><div class="property-info"><div class="property-type">Bureau</div><div class="property-name">Palais des Saveurs</div><div class="property-loc">534 Avenue du Soleil, Cannes</div><div class="property-price">1 850 000 €</div><a href="#" class="property-link">Découvrir <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a></div></div>
+    <div class="property-card fade-up delay-1"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&auto=format&fit=crop" alt="Commerce Nice" loading="lazy"><div class="property-overlay"></div><div class="property-info"><div class="property-type">Commerce</div><div class="property-name">Levante Plaza</div><div class="property-loc">Promenade des Anglais, Nice</div><div class="property-price">2 400 000 €</div><a href="#" class="property-link">Découvrir <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a></div></div>
+    <div class="property-card fade-up delay-2"><img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&auto=format&fit=crop" alt="Villa Antibes" loading="lazy"><div class="property-overlay"></div><div class="property-info"><div class="property-type">Résidentiel</div><div class="property-name">Villa Pinède</div><div class="property-loc">Cap d'Antibes</div><div class="property-price">3 200 000 €</div><a href="#" class="property-link">Découvrir <svg width="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M7 2l4 4-4 4"/></svg></a></div></div>
+  </div>
+</section>
+
+<section id="management">
+  <div class="mgmt-img"><img src="https://images.unsplash.com/photo-1600210491892-03d54079b6ac?w=900&auto=format&fit=crop" alt="Gestion immobilière" loading="lazy"></div>
+  <div class="mgmt-content">
+    <p class="section-tag fade-up">Nos Services</p>
+    <h2 class="section-title fade-up">Gestion<br><em>Immobilière</em></h2>
+    <p class="mgmt-desc fade-up">Confiez-nous votre bien, nous prenons en charge l'intégralité de sa gestion — du locataire à la comptabilité, avec une transparence totale.</p>
+    <ul class="mgmt-features fade-up"><li>Sélection et vérification des locataires</li><li>Gestion des travaux et maintenance</li><li>Optimisation fiscale et comptabilité</li><li>Reporting mensuel personnalisé</li><li>Interface propriétaire en temps réel</li></ul>
+    <a href="#contact" class="btn-cream fade-up">Prendre contact</a>
+  </div>
+</section>
+
+<div id="gallery">
+  <div class="gallery-item"><img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1000&auto=format&fit=crop" alt="Salon de luxe" loading="lazy"><div class="gallery-caption">Élégance &amp; Raffinement</div></div>
+  <div class="gallery-item"><img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&auto=format&fit=crop" alt="Chambre design" loading="lazy"><div class="gallery-caption">Art de Vivre</div></div>
+  <div class="gallery-item" style="display:flex;flex-direction:column;gap:1.5px;">
+    <div style="flex:1;overflow:hidden;" class="gallery-item"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&auto=format&fit=crop" alt="Cuisine moderne" loading="lazy" style="height:100%;object-fit:cover;width:100%;transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94)"></div>
+    <div style="flex:1;overflow:hidden;" class="gallery-item"><img src="https://images.unsplash.com/photo-1600573472591-ee6981cf35dc?w=600&auto=format&fit=crop" alt="Salle de bain" loading="lazy" style="height:100%;object-fit:cover;width:100%;transition:transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94)"></div>
+  </div>
+</div>
+
+<section id="testimonials">
+  <div class="testimonials-header"><p class="section-tag fade-up">Témoignages</p><h2 class="section-title fade-up">Ce que disent<br>nos <em>clients</em></h2></div>
+  <div class="testi-grid">
+    <div class="testi-card fade-up"><div class="testi-stars">★★★★★</div><div class="testi-quote">"</div><p class="testi-text">NEXTLEA a transformé ma vision de l'investissement. Leur analyse du marché est d'une précision remarquable — j'ai obtenu un rendement de 6,8% dès la première année.</p><div class="testi-divider"></div><div class="testi-author"><div class="testi-avatar">GS</div><div><div class="testi-name">Gabriel Strasser</div><div class="testi-role">Entrepreneur, Monaco</div></div></div></div>
+    <div class="testi-card fade-up delay-1"><div class="testi-stars">★★★★★</div><div class="testi-quote">"</div><p class="testi-text">Un accompagnement exceptionnel, de la recherche du bien à la mise en location. Ils ont géré tous les imprévus avec un calme et une réactivité impressionnants.</p><div class="testi-divider"></div><div class="testi-author"><div class="testi-avatar">MJ</div><div><div class="testi-name">Marie-Laure Jouet</div><div class="testi-role">Médecin, Nice</div></div></div></div>
+    <div class="testi-card fade-up delay-2"><div class="testi-stars">★★★★★</div><div class="testi-quote">"</div><p class="testi-text">En tant que non-résident, je cherchais un partenaire de confiance sur la Côte d'Azur. NEXTLEA dépasse toutes mes attentes — transparence, performance, réactivité.</p><div class="testi-divider"></div><div class="testi-author"><div class="testi-avatar">TL</div><div><div class="testi-name">Thomas Leroux</div><div class="testi-role">Investisseur, Genève</div></div></div></div>
+  </div>
+</section>
+
+<section id="cta-band">
+  <div class="cta-bg"></div><div class="cta-overlay"></div>
+  <div class="cta-content">
+    <h2 class="cta-title fade-up">Prêt à investir<br><em>intelligemment ?</em></h2>
+    <p class="cta-sub fade-up">Échange confidentiel, sans engagement. Nous analysons votre situation et votre potentiel.</p>
+    <a href="#contact" class="btn-primary fade-up" style="margin:0 auto;display:inline-flex;">Démarrer maintenant <svg width="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M8 2l5 5-5 5"/></svg></a>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="contact-grid">
+    <div class="contact-brand fade-up">
+      <a href="#" class="nav-logo">
+        <svg class="logo-icon" width="55" height="22" viewBox="0 0 114 44" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,8 31.2,26 0,44"       fill="#8B765B"/>
+          <polygon points="36.2,8 67.4,26 36.2,44"  fill="#8B765B"/>
+          <polygon points="72.4,8 103.6,26 72.4,44" fill="#8B765B"/>
+          <polygon points="5,0 36.2,18 5,36"        fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
+          <polygon points="41.2,0 72.4,18 41.2,36"  fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
+          <polygon points="77.4,0 108.6,18 77.4,36" fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
+        </svg>
+        <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
+      </a>
+      <p>Cabinet d'investissement immobilier premium, opérant sur la Côte d'Azur et les principales métropoles françaises.</p>
+      <div class="social-links"><a href="#" class="social-link">Li</a><a href="#" class="social-link">Ig</a><a href="#" class="social-link">Fb</a><a href="#" class="social-link">Yt</a></div>
+    </div>
+    <div class="contact-col fade-up delay-1">
+      <h4>Contact</h4>
+      <ul><li>10 Promenade du Bord de Mer<br>06600 Antibes, France</li><li><a href="tel:+33493000000">+33 (0)4 93 00 00 00</a></li><li><a href="mailto:hello@nextlea.com">hello@nextlea.com</a></li><li>Lun – Ven : 9h – 18h<br>Sam : 10h – 14h sur RDV</li></ul>
+    </div>
+    <div class="contact-col fade-up delay-2">
+      <h4>Navigation</h4>
+      <ul><li><a href="#about">À Propos</a></li><li><a href="#properties">Nos Propriétés</a></li><li><a href="#management">Gestion Immobilière</a></li><li><a href="#testimonials">Témoignages</a></li><li><a href="#contact">Nous Contacter</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 NEXTLEA — Tous droits réservés</p>
+    <div class="footer-links"><a href="#">Mentions légales</a><a href="#">Politique de confidentialité</a><a href="#">CGV</a></div>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx=0, my=0, rx=0, ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+  function animateRing(){ rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animateRing); }
+  animateRing();
+  document.querySelectorAll('a,button,.property-card').forEach(el=>{ el.addEventListener('mouseenter',()=>ring.classList.add('expanded')); el.addEventListener('mouseleave',()=>ring.classList.remove('expanded')); });
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', ()=>{ nav.classList.toggle('scrolled', window.scrollY>60); });
+  const obs = new IntersectionObserver(entries=>{ entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }); },{ threshold:0.12 });
+  document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+  document.querySelectorAll('#gallery img').forEach(img=>{ img.parentElement.addEventListener('mouseenter',()=>img.style.transform='scale(1.06)'); img.parentElement.addEventListener('mouseleave',()=>img.style.transform=''); });
+</script>
+</body>
+</html>
