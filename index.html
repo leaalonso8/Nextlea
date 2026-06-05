@@ -31,8 +31,8 @@
   .nav-logo { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem; line-height: 1; }
   .nav-logo svg.logo-icon { display: block; }
   .nav-logo-wordmark { display: flex; align-items: baseline; font-family: var(--serif); font-size: 1.35rem; font-weight: 300; letter-spacing: 0.22em; line-height: 1; }
-  .nav-logo-wordmark .logo-next { color: #0A0000; }
-  .nav-logo-wordmark .logo-lea  { color: #AA9985; }
+  .nav-logo-wordmark .logo-next { color: #1a140a; }
+  .nav-logo-wordmark .logo-lea  { color: #8B765B; }
   .nav-tagline { font-family: var(--sans); font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(26,20,10,0.42); font-weight: 400; display: flex; align-items: center; gap: 0.5rem; }
   .nav-tagline::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0; }
 
@@ -203,7 +203,7 @@
   .contact-brand .nav-logo { display: block; margin-bottom: 1.5rem; }
   .contact-brand .nav-logo-wordmark { font-size: 1.6rem; }
   .contact-brand .logo-next { color: var(--white) !important; }
-  .contact-brand .logo-lea  { color: #AA9985 !important; }
+  .contact-brand .logo-lea  { color: #8B765B !important; }
   .contact-brand p { font-size: 0.85rem; line-height: 1.8; color: rgba(250,250,248,0.45); font-weight: 300; max-width: 300px; margin-bottom: 2rem; }
   .social-links { display: flex; gap: 1rem; }
   .social-link { width: 40px; height: 40px; border: 1px solid rgba(139,118,91,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(250,250,248,0.5); font-size: 0.7rem; letter-spacing: 0.05em; transition: border-color 0.25s, color 0.25s; }
@@ -243,17 +243,24 @@
 <nav id="navbar">
   <a href="#" class="nav-logo">
     <!--
-      Logo NEXTLEA — 3 triangles en éventail, pointe droite
-      Géométrie issue de l'analyse pixel de l'original (320x144px) :
-      - Triangles à base gauche : x=0, 54, 108 (espacement 54/320 ≈ 17%)
-      - Hauteur totale : 62px dans l'original → normalisée ici
-      - Remplissage : #AC9880 (tan warm), contour : #0A0000 (quasi-noir)
-      - Le triangle 2 commence avant la pointe du triangle 1 (chevauchement ~27%)
+      Logo NEXTLEA :
+      - Couche 1 (bas) : 3 triangles pleins #8B765B, côte à côte, sans chevauchement
+      - Couche 2 (haut) : mêmes 3 triangles en contour noir, décalés +5px droite / -5px haut
+      - viewBox élargi pour accueillir le décalage : 0 0 125 68
+        Triangles pleins : base y=5..68, apex centré y=36
+        Tri1: 0,5 → 38,36 → 0,68  |  Tri2: 42,5 → 80,36 → 42,68  |  Tri3: 84,5 → 122,36 → 84,68
+        Décalage outlines : +5px x, -5px y
+        Outline1: 5,0 → 43,31 → 5,63  |  etc.
     -->
-    <svg class="logo-icon" width="72" height="34" viewBox="0 0 108 62" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="0,0 54,31 0,62" fill="#AC9880" stroke="#0A0000" stroke-width="1.8" stroke-linejoin="miter"/>
-      <polygon points="27,0 81,31 27,62" fill="#AC9880" stroke="#0A0000" stroke-width="1.8" stroke-linejoin="miter"/>
-      <polygon points="54,0 108,31 54,62" fill="#AC9880" stroke="#0A0000" stroke-width="1.8" stroke-linejoin="miter"/>
+    <svg class="logo-icon" width="70" height="40" viewBox="0 0 125 73" xmlns="http://www.w3.org/2000/svg">
+      <!-- Couche 1 : triangles pleins brun-taupe -->
+      <polygon points="0,5 38,36 0,68" fill="#8B765B" stroke="none"/>
+      <polygon points="42,5 80,36 42,68" fill="#8B765B" stroke="none"/>
+      <polygon points="84,5 122,36 84,68" fill="#8B765B" stroke="none"/>
+      <!-- Couche 2 : même forme en contour noir, décalée +5px droite / -5px haut -->
+      <polygon points="5,0 43,31 5,63" fill="none" stroke="#1a140a" stroke-width="1.5" stroke-linejoin="miter"/>
+      <polygon points="47,0 85,31 47,63" fill="none" stroke="#1a140a" stroke-width="1.5" stroke-linejoin="miter"/>
+      <polygon points="89,0 127,31 89,63" fill="none" stroke="#1a140a" stroke-width="1.5" stroke-linejoin="miter"/>
     </svg>
     <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
     <span class="nav-tagline">Investissement Immobilier Premium</span>
@@ -417,10 +424,14 @@
   <div class="contact-grid">
     <div class="contact-brand fade-up">
       <a href="#" class="nav-logo">
-        <svg class="logo-icon" width="60" height="28" viewBox="0 0 108 62" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="0,0 54,31 0,62" fill="#AC9880" stroke="#AC9880" stroke-width="1.8" stroke-linejoin="miter"/>
-          <polygon points="27,0 81,31 27,62" fill="#AC9880" stroke="#AC9880" stroke-width="1.8" stroke-linejoin="miter"/>
-          <polygon points="54,0 108,31 54,62" fill="#AC9880" stroke="#AC9880" stroke-width="1.8" stroke-linejoin="miter"/>
+        <!-- Footer : fond sombre — même SVG, contours en #8B765B au lieu de #1a140a -->
+        <svg class="logo-icon" width="60" height="34" viewBox="0 0 125 73" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,5 38,36 0,68" fill="#8B765B" stroke="none"/>
+          <polygon points="42,5 80,36 42,68" fill="#8B765B" stroke="none"/>
+          <polygon points="84,5 122,36 84,68" fill="#8B765B" stroke="none"/>
+          <polygon points="5,0 43,31 5,63" fill="none" stroke="#8B765B" stroke-width="1.5" stroke-linejoin="miter" stroke-opacity="0.5"/>
+          <polygon points="47,0 85,31 47,63" fill="none" stroke="#8B765B" stroke-width="1.5" stroke-linejoin="miter" stroke-opacity="0.5"/>
+          <polygon points="89,0 127,31 89,63" fill="none" stroke="#8B765B" stroke-width="1.5" stroke-linejoin="miter" stroke-opacity="0.5"/>
         </svg>
         <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
       </a>
