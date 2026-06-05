@@ -53,23 +53,25 @@
   .hero-content { position: relative; z-index: 2; padding: 0 6vw 0 8vw; max-width: 600px; }
   .hero-right { position: relative; background: linear-gradient(to right, #080808 0%, #1a1713 12%, #3a3228 28%, #6e6356 45%, #a09489 60%, #c2bcb4 75%, #d0cbc4 88%, #d4cfc8 100%); display: flex; align-items: center; justify-content: center; overflow: hidden; }
 
-  .prop-cards-stack { position: relative; width: 520px; height: 420px; flex-shrink: 0; }
-  .ppc { position: absolute; width: 210px; background: #F4EDE0; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px; overflow: hidden; font-family: var(--sans); box-shadow: 0 12px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1); transform-origin: bottom center; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, z-index 0s; }
-  .ppc:nth-child(1) { left: 20px; top: 28px; transform: rotate(-9deg); z-index: 1; }
-  .ppc:nth-child(2) { left: 155px; top: 0; transform: rotate(0deg); z-index: 3; }
-  .ppc:nth-child(3) { left: 290px; top: 28px; transform: rotate(9deg); z-index: 2; }
+  /* ── HERO CARDS ── */
+  .prop-cards-stack { position: relative; width: 520px; height: 500px; flex-shrink: 0; }
+  .ppc { position: absolute; width: 210px; background: #F4EDE0; border: 1px solid rgba(0,0,0,0.08); border-radius: 4px; overflow: hidden; font-family: var(--sans); box-shadow: 0 12px 40px rgba(0,0,0,0.22), 0 2px 8px rgba(0,0,0,0.1); transform-origin: bottom center; transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, z-index 0s; }
+  /* haut / bas / haut */
+  .ppc:nth-child(1) { left: 20px;  top: 28px;  transform: rotate(-9deg); z-index: 1; }
+  .ppc:nth-child(2) { left: 155px; top: 100px; transform: rotate(0deg);  z-index: 3; }
+  .ppc:nth-child(3) { left: 290px; top: 28px;  transform: rotate(9deg);  z-index: 2; }
   .ppc:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
   .ppc:nth-child(1):hover { transform: rotate(-9deg) translateY(-10px); }
   .ppc:nth-child(2):hover { transform: rotate(0deg) translateY(-10px); }
   .ppc:nth-child(3):hover { transform: rotate(9deg) translateY(-10px); }
   .ppc-header { padding: 0.85rem 0.85rem 0.5rem; display: flex; justify-content: space-between; align-items: flex-start; }
-  .ppc-name { font-size: 0.78rem; font-weight: 700; color: #1a140a; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; }
   .ppc-status { font-size: 0.6rem; color: rgba(26,20,10,0.45); margin-top: 0.2rem; display: flex; align-items: center; gap: 0.35rem; }
   .ppc-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #5a8a3c; flex-shrink: 0; }
   .ppc-score-block { text-align: right; }
   .ppc-score-num { font-size: 1.5rem; font-weight: 800; color: #1a140a; line-height: 1; }
   .ppc-score-max { font-size: 0.65rem; font-weight: 400; color: rgba(26,20,10,0.45); }
-  .ppc-photo { position: relative; height: 148px; overflow: hidden; margin: 0 0.65rem; border-radius: 8px; }
+  /* Photo sans arrondi */
+  .ppc-photo { position: relative; height: 148px; overflow: hidden; margin: 0 0.65rem; border-radius: 0; }
   .ppc-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
   .ppc:hover .ppc-photo img { transform: scale(1.05); }
   .ppc-loc-tag { position: absolute; bottom: 0.55rem; left: 0.55rem; background: #2a1f0f; color: #f4ede0; font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; padding: 0.25rem 0.65rem; border-radius: 4px; text-transform: uppercase; }
@@ -77,6 +79,9 @@
   .ppc-tier-tag.gold { background: var(--gold); color: #1a140a; }
   .ppc-tier-tag.silver { background: #9EA5AE; color: #1a140a; }
   .ppc-tier-tag.green { background: var(--olive); color: #fff; }
+  /* Bandeau titre beige taupe */
+  .ppc-title-banner { background: #c8b49a; padding: 0.42rem 0.85rem; margin: 0 0 0 0; }
+  .ppc-title-banner .ppc-name { font-size: 0.75rem; font-weight: 700; color: #2e2010; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.02em; }
   .ppc-metrics { padding: 0.7rem 0.85rem 0; display: flex; flex-direction: column; gap: 0.3rem; }
   .ppc-metric { display: flex; align-items: center; gap: 0.5rem; }
   .ppc-metric-label { font-size: 0.58rem; color: rgba(26,20,10,0.45); text-transform: uppercase; letter-spacing: 0.06em; width: 84px; flex-shrink: 0; }
@@ -242,21 +247,10 @@
 
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <!--
-      LOGO — triangles équilatéraux côté 36px, hauteur 31.2px, gap 5px
-      PLEINS  (#8B765B) : y=8..44  (base à y=8)
-      VIDES   (contour noir) : +5px droite, -8px haut → y=3..39
-        Décalage total haut = 5px (précédent) + 3px (ajout) = 8px
-        Pleins apex y = 8 + 18 = 26
-        Vides  apex y = 3 + 18 = 21
-      viewBox = 0 0 114 44
-    -->
     <svg class="logo-icon" width="65" height="26" viewBox="0 0 114 44" xmlns="http://www.w3.org/2000/svg">
-      <!-- Triangles pleins #8B765B -->
       <polygon points="0,8 31.2,26 0,44"    fill="#8B765B"/>
       <polygon points="36.2,8 67.4,26 36.2,44" fill="#8B765B"/>
       <polygon points="72.4,8 103.6,26 72.4,44" fill="#8B765B"/>
-      <!-- Triangles vides contour noir — +5px droite / -8px haut par rapport aux pleins -->
       <polygon points="5,0 36.2,18 5,36"    fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
       <polygon points="41.2,0 72.4,18 41.2,36" fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
       <polygon points="77.4,0 108.6,18 77.4,36" fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
@@ -301,9 +295,15 @@
   </div>
   <div class="hero-right">
     <div class="prop-cards-stack">
+
+      <!-- Carte 1 — gauche, haute -->
       <div class="ppc">
-        <div class="ppc-header"><div><div class="ppc-name">Studio Haussmannien</div><div class="ppc-status"><span class="ppc-status-dot" style="background:#9EA5AE"></span>Sous compromis</div></div><div class="ppc-score-block"><span class="ppc-score-num">76</span><span class="ppc-score-max">/100</span></div></div>
+        <div class="ppc-header">
+          <div><div class="ppc-status"><span class="ppc-status-dot" style="background:#9EA5AE"></span>Sous compromis</div></div>
+          <div class="ppc-score-block"><span class="ppc-score-num">76</span><span class="ppc-score-max">/100</span></div>
+        </div>
         <div class="ppc-photo"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&auto=format&fit=crop&q=80" alt="Studio Cannes"><span class="ppc-loc-tag">Cannes</span><span class="ppc-tier-tag silver">SILVER</span></div>
+        <div class="ppc-title-banner"><div class="ppc-name">Studio Haussmannien</div></div>
         <div class="ppc-metrics">
           <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:62%"></div></div><span class="ppc-metric-val">5,4 %</span></div>
           <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:86%"></div></div><span class="ppc-metric-val">88 %</span></div>
@@ -314,9 +314,15 @@
         </div>
         <div class="ppc-footer">RÉSIDENTIEL · CANNES CENTRE · 890 000 €</div>
       </div>
+
+      <!-- Carte 2 — milieu, basse -->
       <div class="ppc">
-        <div class="ppc-header"><div><div class="ppc-name">Belle Époque</div><div class="ppc-status"><span class="ppc-status-dot"></span>Disponible immédiat</div></div><div class="ppc-score-block"><span class="ppc-score-num">91</span><span class="ppc-score-max">/100</span></div></div>
+        <div class="ppc-header">
+          <div><div class="ppc-status"><span class="ppc-status-dot"></span>Disponible immédiat</div></div>
+          <div class="ppc-score-block"><span class="ppc-score-num">91</span><span class="ppc-score-max">/100</span></div>
+        </div>
         <div class="ppc-photo"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&auto=format&fit=crop&q=80" alt="Appartement Nice"><span class="ppc-loc-tag">Nice</span><span class="ppc-tier-tag gold">✓ GOLD</span></div>
+        <div class="ppc-title-banner"><div class="ppc-name">Belle Époque</div></div>
         <div class="ppc-metrics">
           <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:82%"></div></div><span class="ppc-metric-val">6,8 %</span></div>
           <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:94%"></div></div><span class="ppc-metric-val">94 %</span></div>
@@ -327,9 +333,15 @@
         </div>
         <div class="ppc-footer">RÉSIDENTIEL · PROMENADE ANGLAIS · 1 240 000 €</div>
       </div>
+
+      <!-- Carte 3 — droite, haute -->
       <div class="ppc">
-        <div class="ppc-header"><div><div class="ppc-name">Commerce Vieille Ville</div><div class="ppc-status"><span class="ppc-status-dot"></span>Disponible immédiat</div></div><div class="ppc-score-block"><span class="ppc-score-num">84</span><span class="ppc-score-max">/100</span></div></div>
+        <div class="ppc-header">
+          <div><div class="ppc-status"><span class="ppc-status-dot"></span>Disponible immédiat</div></div>
+          <div class="ppc-score-block"><span class="ppc-score-num">84</span><span class="ppc-score-max">/100</span></div>
+        </div>
         <div class="ppc-photo"><img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=400&auto=format&fit=crop&q=80" alt="Commerce Antibes"><span class="ppc-loc-tag">Antibes</span><span class="ppc-tier-tag green">VÉRIFIÉ</span></div>
+        <div class="ppc-title-banner"><div class="ppc-name">Commerce Vieille Ville</div></div>
         <div class="ppc-metrics">
           <div class="ppc-metric"><span class="ppc-metric-label">Rendement</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:90%"></div></div><span class="ppc-metric-val">7,6 %</span></div>
           <div class="ppc-metric"><span class="ppc-metric-label">Occupation</span><div class="ppc-metric-bar"><div class="ppc-metric-fill" style="width:100%"></div></div><span class="ppc-metric-val">100 %</span></div>
@@ -340,6 +352,7 @@
         </div>
         <div class="ppc-footer">COMMERCE · VIEILLE VILLE · 420 000 €</div>
       </div>
+
     </div>
   </div>
 </section>
