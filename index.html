@@ -28,17 +28,9 @@
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 4vw; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; background: #EDE7D9; border-bottom: 1px solid rgba(0,0,0,0.07); transition: background 0.4s, box-shadow 0.4s; }
   nav.scrolled { background: #E8E1D4; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
 
-  /* LOGO */
-  .nav-logo {
-    text-decoration: none;
-    display: flex; flex-direction: column; align-items: center; gap: 0.18rem;
-    line-height: 1;
-  }
+  .nav-logo { text-decoration: none; display: flex; flex-direction: column; align-items: center; gap: 0.18rem; line-height: 1; }
   .nav-logo svg.logo-icon { display: block; }
-  .nav-logo-wordmark {
-    display: flex; align-items: baseline;
-    font-family: var(--serif); font-size: 1.35rem; font-weight: 300; letter-spacing: 0.22em; line-height: 1;
-  }
+  .nav-logo-wordmark { display: flex; align-items: baseline; font-family: var(--serif); font-size: 1.35rem; font-weight: 300; letter-spacing: 0.22em; line-height: 1; }
   .nav-logo-wordmark .logo-next { color: #1a140a; }
   .nav-logo-wordmark .logo-lea  { color: #8B765B; }
   .nav-tagline { font-family: var(--sans); font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(26,20,10,0.42); font-weight: 400; display: flex; align-items: center; gap: 0.5rem; }
@@ -248,31 +240,25 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
-<!--
-  LOGO SVG — géométrie exacte :
-  Triangle équilatéral pointé à droite, côté = 36px, hauteur = 31.2px
-  3 triangles côte à côte, gap = 5px
-  PLEINS  (#8B765B) : démarrés à y=5  → occupent y=5..41
-  VIDES   (contour noir) : décalés +5px droite, -5px haut → occupent y=0..36
-  viewBox = 0 0 109 41  (108.5 + décalage x 5 = 113.5 → arrondi 114 ; hauteur 41)
--->
-
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <svg class="logo-icon" width="65" height="25" viewBox="0 0 114 41" xmlns="http://www.w3.org/2000/svg">
-      <!-- Triangles pleins #8B765B — base à gauche, pointe à droite, côté 36px -->
-      <!-- Triangle 1: base x=0, y=5..41, apex=(31.2, 23) -->
-      <polygon points="0,5 31.2,23 0,41" fill="#8B765B"/>
-      <!-- Triangle 2: base x=36.2, gap=5px -->
-      <polygon points="36.2,5 67.4,23 36.2,41" fill="#8B765B"/>
-      <!-- Triangle 3: base x=72.4 -->
-      <polygon points="72.4,5 103.6,23 72.4,41" fill="#8B765B"/>
-      <!-- Triangles vides contour noir — décalés +5px droite / -5px haut -->
-      <!-- Outline 1: base x=5, y=0..36, apex=(36.2, 18) -->
-      <polygon points="5,0 36.2,18 5,36" fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
-      <!-- Outline 2: base x=41.2 -->
+    <!--
+      LOGO — triangles équilatéraux côté 36px, hauteur 31.2px, gap 5px
+      PLEINS  (#8B765B) : y=8..44  (base à y=8)
+      VIDES   (contour noir) : +5px droite, -8px haut → y=3..39
+        Décalage total haut = 5px (précédent) + 3px (ajout) = 8px
+        Pleins apex y = 8 + 18 = 26
+        Vides  apex y = 3 + 18 = 21
+      viewBox = 0 0 114 44
+    -->
+    <svg class="logo-icon" width="65" height="26" viewBox="0 0 114 44" xmlns="http://www.w3.org/2000/svg">
+      <!-- Triangles pleins #8B765B -->
+      <polygon points="0,8 31.2,26 0,44"    fill="#8B765B"/>
+      <polygon points="36.2,8 67.4,26 36.2,44" fill="#8B765B"/>
+      <polygon points="72.4,8 103.6,26 72.4,44" fill="#8B765B"/>
+      <!-- Triangles vides contour noir — +5px droite / -8px haut par rapport aux pleins -->
+      <polygon points="5,0 36.2,18 5,36"    fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
       <polygon points="41.2,0 72.4,18 41.2,36" fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
-      <!-- Outline 3: base x=77.4 -->
       <polygon points="77.4,0 108.6,18 77.4,36" fill="none" stroke="#1a140a" stroke-width="1.4" stroke-linejoin="miter"/>
     </svg>
     <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
@@ -437,12 +423,11 @@
   <div class="contact-grid">
     <div class="contact-brand fade-up">
       <a href="#" class="nav-logo">
-        <!-- Footer : fond sombre → contours en #8B765B semi-transparent -->
-        <svg class="logo-icon" width="55" height="21" viewBox="0 0 114 41" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="0,5 31.2,23 0,41" fill="#8B765B"/>
-          <polygon points="36.2,5 67.4,23 36.2,41" fill="#8B765B"/>
-          <polygon points="72.4,5 103.6,23 72.4,41" fill="#8B765B"/>
-          <polygon points="5,0 36.2,18 5,36" fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
+        <svg class="logo-icon" width="55" height="22" viewBox="0 0 114 44" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,8 31.2,26 0,44"    fill="#8B765B"/>
+          <polygon points="36.2,8 67.4,26 36.2,44" fill="#8B765B"/>
+          <polygon points="72.4,8 103.6,26 72.4,44" fill="#8B765B"/>
+          <polygon points="5,0 36.2,18 5,36"    fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
           <polygon points="41.2,0 72.4,18 41.2,36" fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
           <polygon points="77.4,0 108.6,18 77.4,36" fill="none" stroke="#8B765B" stroke-width="1.4" stroke-linejoin="miter" opacity="0.55"/>
         </svg>
