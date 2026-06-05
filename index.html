@@ -11,6 +11,8 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
+    --nav-h: 72px;
+    --marquee-h: 44px;
     --noir: #080808;
     --noir-soft: #111111;
     --noir-mid: #1a1a1a;
@@ -64,7 +66,7 @@
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 100;
     padding: 0 4vw;
-    height: 72px;
+    height: var(--nav-h);
     display: flex; align-items: center; justify-content: space-between;
     background: #EDE7D9;
     border-bottom: 1px solid rgba(0,0,0,0.07);
@@ -124,13 +126,13 @@
   }
   .nav-cta:hover { background: #3a2e18; }
 
-  /* HERO */
+  /* HERO — hauteur = 100vh moins nav moins banderole */
   #hero {
-    height: 100vh; min-height: 700px;
     display: grid; grid-template-columns: 1fr 1fr;
     overflow: hidden;
-    margin-top: 72px;
-    height: calc(100vh - 72px);
+    margin-top: var(--nav-h);
+    height: calc(100vh - var(--nav-h) - var(--marquee-h));
+    min-height: 600px;
   }
   .hero-left {
     position: relative;
@@ -145,7 +147,6 @@
     position: absolute; inset: 0;
     background: linear-gradient(105deg, rgba(8,8,8,0.88) 35%, rgba(8,8,8,0.5) 80%, rgba(8,8,8,0.82) 100%);
   }
-  /* Fondu droit : la photo se dissout progressivement vers le noir */
   .hero-blend {
     position: absolute; top: 0; right: 0;
     width: 55%; height: 100%;
@@ -163,10 +164,9 @@
     padding: 0 6vw 0 8vw; max-width: 600px;
   }
 
-  /* HERO RIGHT PANEL — fondu progressif noir → gris clair */
+  /* HERO RIGHT PANEL */
   .hero-right {
     position: relative;
-    /* Départ noir (continuité avec hero-left), fondu long vers gris clair warm */
     background: linear-gradient(
       to right,
       #080808 0%,
@@ -194,7 +194,7 @@
     flex-shrink: 0;
   }
 
-  /* PROPERTY PROFILE CARD — SalesUncut style, light cream */
+  /* PROPERTY PROFILE CARD */
   .ppc {
     position: absolute;
     width: 210px;
@@ -207,7 +207,6 @@
     transform-origin: bottom center;
     transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s, z-index 0s;
   }
-  /* card positions in the fan */
   .ppc:nth-child(1) {
     left: 20px; top: 28px;
     transform: rotate(-9deg);
@@ -228,7 +227,6 @@
   .ppc:nth-child(2):hover { transform: rotate(0deg) translateY(-10px); }
   .ppc:nth-child(3):hover { transform: rotate(9deg) translateY(-10px); }
 
-  /* Card header: name + score */
   .ppc-header {
     padding: 0.85rem 0.85rem 0.5rem;
     display: flex; justify-content: space-between; align-items: flex-start;
@@ -253,7 +251,6 @@
     font-size: 0.65rem; font-weight: 400; color: rgba(26,20,10,0.45);
   }
 
-  /* Photo */
   .ppc-photo {
     position: relative; height: 148px; overflow: hidden;
     margin: 0 0.65rem; border-radius: 8px;
@@ -280,7 +277,6 @@
   .ppc-tier-tag.silver { background: #9EA5AE; color: #1a140a; }
   .ppc-tier-tag.green { background: var(--olive); color: #fff; }
 
-  /* Metrics */
   .ppc-metrics {
     padding: 0.7rem 0.85rem 0;
     display: flex; flex-direction: column; gap: 0.3rem;
@@ -305,7 +301,6 @@
     width: 34px; text-align: right; flex-shrink: 0;
   }
 
-  /* Footer */
   .ppc-footer {
     padding: 0.6rem 0.85rem 0.85rem;
     font-size: 0.6rem; color: rgba(26,20,10,0.4);
@@ -806,8 +801,10 @@
   /* MARQUEE */
   .marquee-wrap {
     background: var(--gold);
-    padding: 1.1rem 0; overflow: hidden;
+    height: var(--marquee-h);
+    padding: 0; overflow: hidden;
     white-space: nowrap;
+    display: flex; align-items: center;
   }
   .marquee-track {
     display: inline-flex; gap: 0;
