@@ -28,11 +28,11 @@
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 4vw; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; background: #EDE7D9; border-bottom: 1px solid rgba(0,0,0,0.07); transition: background 0.4s, box-shadow 0.4s; }
   nav.scrolled { background: #E8E1D4; box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
 
-  .nav-logo { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 0.12rem; line-height: 1; }
+  .nav-logo { text-decoration: none; display: flex; flex-direction: column; align-items: flex-start; gap: 0.1rem; line-height: 1; }
   .nav-logo svg.logo-icon { display: block; }
   .nav-logo-wordmark { display: flex; align-items: baseline; font-family: var(--serif); font-size: 1.35rem; font-weight: 300; letter-spacing: 0.22em; line-height: 1; }
-  .nav-logo-wordmark .logo-next { color: #1a140a; }
-  .nav-logo-wordmark .logo-lea  { color: #8B765B; }
+  .nav-logo-wordmark .logo-next { color: #0A0000; }
+  .nav-logo-wordmark .logo-lea  { color: #AA9985; }
   .nav-tagline { font-family: var(--sans); font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(26,20,10,0.42); font-weight: 400; display: flex; align-items: center; gap: 0.5rem; }
   .nav-tagline::before { content: ''; display: inline-block; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0; }
 
@@ -203,7 +203,7 @@
   .contact-brand .nav-logo { display: block; margin-bottom: 1.5rem; }
   .contact-brand .nav-logo-wordmark { font-size: 1.6rem; }
   .contact-brand .logo-next { color: var(--white) !important; }
-  .contact-brand .logo-lea  { color: var(--gold) !important; }
+  .contact-brand .logo-lea  { color: #AA9985 !important; }
   .contact-brand p { font-size: 0.85rem; line-height: 1.8; color: rgba(250,250,248,0.45); font-weight: 300; max-width: 300px; margin-bottom: 2rem; }
   .social-links { display: flex; gap: 1rem; }
   .social-link { width: 40px; height: 40px; border: 1px solid rgba(139,118,91,0.2); display: flex; align-items: center; justify-content: center; text-decoration: none; color: rgba(250,250,248,0.5); font-size: 0.7rem; letter-spacing: 0.05em; transition: border-color 0.25s, color 0.25s; }
@@ -242,10 +242,18 @@
 
 <nav id="navbar">
   <a href="#" class="nav-logo">
-    <svg class="logo-icon" width="46" height="22" viewBox="0 0 58 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="0,0 16,14 0,28" fill="none" stroke="#8B765B" stroke-width="1.3" stroke-linejoin="miter"/>
-      <polygon points="14,0 30,14 14,28" fill="none" stroke="#8B765B" stroke-width="1.3" stroke-linejoin="miter"/>
-      <polygon points="28,0 44,14 28,28" fill="none" stroke="#8B765B" stroke-width="1.3" stroke-linejoin="miter"/>
+    <!--
+      Logo NEXTLEA — 3 triangles en éventail, pointe droite
+      Géométrie issue de l'analyse pixel de l'original (320x144px) :
+      - Triangles à base gauche : x=0, 54, 108 (espacement 54/320 ≈ 17%)
+      - Hauteur totale : 62px dans l'original → normalisée ici
+      - Remplissage : #AC9880 (tan warm), contour : #0A0000 (quasi-noir)
+      - Le triangle 2 commence avant la pointe du triangle 1 (chevauchement ~27%)
+    -->
+    <svg class="logo-icon" width="72" height="34" viewBox="0 0 108 62" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="0,0 54,31 0,62" fill="#AC9880" stroke="#0A0000" stroke-width="1.8" stroke-linejoin="miter"/>
+      <polygon points="27,0 81,31 27,62" fill="#AC9880" stroke="#0A0000" stroke-width="1.8" stroke-linejoin="miter"/>
+      <polygon points="54,0 108,31 54,62" fill="#AC9880" stroke="#0A0000" stroke-width="1.8" stroke-linejoin="miter"/>
     </svg>
     <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
     <span class="nav-tagline">Investissement Immobilier Premium</span>
@@ -409,10 +417,10 @@
   <div class="contact-grid">
     <div class="contact-brand fade-up">
       <a href="#" class="nav-logo">
-        <svg class="logo-icon" width="40" height="19" viewBox="0 0 58 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <polygon points="0,0 16,14 0,28" fill="none" stroke="#8B765B" stroke-width="1.3" stroke-linejoin="miter"/>
-          <polygon points="14,0 30,14 14,28" fill="none" stroke="#8B765B" stroke-width="1.3" stroke-linejoin="miter"/>
-          <polygon points="28,0 44,14 28,28" fill="none" stroke="#8B765B" stroke-width="1.3" stroke-linejoin="miter"/>
+        <svg class="logo-icon" width="60" height="28" viewBox="0 0 108 62" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="0,0 54,31 0,62" fill="#AC9880" stroke="#AC9880" stroke-width="1.8" stroke-linejoin="miter"/>
+          <polygon points="27,0 81,31 27,62" fill="#AC9880" stroke="#AC9880" stroke-width="1.8" stroke-linejoin="miter"/>
+          <polygon points="54,0 108,31 54,62" fill="#AC9880" stroke="#AC9880" stroke-width="1.8" stroke-linejoin="miter"/>
         </svg>
         <span class="nav-logo-wordmark"><span class="logo-next">NEXT</span><span class="logo-lea">LEA</span></span>
       </a>
